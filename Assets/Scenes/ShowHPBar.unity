@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 375479361}
   - component: {fileID: 375479360}
   - component: {fileID: 375479359}
+  - component: {fileID: 375479362}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -191,6 +192,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &375479362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375479358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28575961e2daa0f4d816abe73ba4969b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyHPBar: {fileID: 1964574681}
+  PlayerHPBar: {fileID: 1567255489}
 --- !u!1 &661758452
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,7 +403,6 @@ GameObject:
   - component: {fileID: 1567255490}
   - component: {fileID: 1567255493}
   - component: {fileID: 1567255492}
-  - component: {fileID: 1567255491}
   m_Layer: 5
   m_Name: PlayerHP
   m_TagString: Untagged
@@ -416,19 +430,6 @@ RectTransform:
   m_AnchoredPosition: {x: 260, y: -170}
   m_SizeDelta: {x: 300, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1567255491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1567255489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28575961e2daa0f4d816abe73ba4969b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  theBar: {fileID: 1567255489}
 --- !u!114 &1567255492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,7 +479,6 @@ GameObject:
   - component: {fileID: 1964574682}
   - component: {fileID: 1964574685}
   - component: {fileID: 1964574684}
-  - component: {fileID: 1964574683}
   m_Layer: 5
   m_Name: EnemyHP
   m_TagString: Untagged
@@ -506,19 +506,6 @@ RectTransform:
   m_AnchoredPosition: {x: -270, y: 165}
   m_SizeDelta: {x: 300, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1964574683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1964574681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28575961e2daa0f4d816abe73ba4969b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  theBar: {fileID: 1964574681}
 --- !u!114 &1964574684
 MonoBehaviour:
   m_ObjectHideFlags: 0
