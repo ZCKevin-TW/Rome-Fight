@@ -8,7 +8,7 @@ public class Attack : MonoBehaviour
     // Start is called before the first frame update
     private float LeftEdge, RightEdge;
     [SerializeField] private PlayerMovement Player;
-    
+    [SerializeField] private HpBar TheBar;
 
     void Start()
     {
@@ -32,7 +32,10 @@ public class Attack : MonoBehaviour
     {
         float SightX = Player.GetSightX();
         if (SightX >= LeftEdge && SightX <= RightEdge)
+        {
+            TheBar.DecreaseBigHP();
             Debug.Log("HIT");
+        }
         else
             Debug.Log("MISS");
 
