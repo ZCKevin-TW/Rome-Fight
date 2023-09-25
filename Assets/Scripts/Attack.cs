@@ -7,9 +7,9 @@ public class Attack : MonoBehaviour
 {
     // Start is called before the first frame update
     private float LeftEdge, RightEdge;
-    [SerializeField] private PlayerMovement Player;
+    private PlayerControll Player;
     [SerializeField] private float PreTime = .5f;
-    [SerializeField] private float PostTime = .5f; 
+    [SerializeField] private float PostTime = .5f;
     enum Status { 
         IdleStage,
         PreStage,
@@ -21,12 +21,17 @@ public class Attack : MonoBehaviour
     {
         CurrentStatus = status;
     }
+    public bool Moveable()
+    {
+        return CurrentStatus != Status.PreStage; 
+    }
     bool IsActive()
     {
         return CurrentStatus != Status.IdleStage;
     }
     void Start()
     {
+        Player = GetComponent<PlayerControll>();
         SetStatus(Status.IdleStage);
         RightEdge = (float)Random.Range(2, 4);
         LeftEdge = (float)Random.Range(-4, -2);
@@ -37,24 +42,19 @@ public class Attack : MonoBehaviour
     IEnumerator Trigger()
     {
         SetStatus(Status.PreStage);
-        Player.Freeze();
         yield return new WaitForSeconds(PreTime);
         AttackEvent();
         yield return null;
-        Player.UnFreeze();
         SetStatus(Status.PostStage);
         yield return new WaitForSeconds(PostTime); 
         SetStatus(Status.IdleStage);
         yield return null; 
     }
     // Update is called once per frame
-    void Update()
+    public void Fire()
     {
-        if (Input.GetButtonDown("Fire1")) {
-            Debug.Log("Fire 1 button is triggered");
-            if (!IsActive())
-                StartCoroutine(Trigger());
-        }
+        if (!IsActive())
+            StartCoroutine(Trigger());
     }
     public void AttackEvent()
     {
