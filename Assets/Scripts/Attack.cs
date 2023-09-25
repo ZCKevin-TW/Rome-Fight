@@ -7,7 +7,7 @@ public class Attack : MonoBehaviour
 {
     // Start is called before the first frame update
     private float LeftEdge, RightEdge;
-    private PlayerControll Player;
+    private PlayerControl Player;
     [SerializeField] private float PreTime = .5f;
     [SerializeField] private float PostTime = .5f;
     enum Status { 
@@ -31,7 +31,7 @@ public class Attack : MonoBehaviour
     }
     void Start()
     {
-        Player = GetComponent<PlayerControll>();
+        Player = GetComponent<PlayerControl>();
         SetStatus(Status.IdleStage);
         RightEdge = (float)Random.Range(2, 4);
         LeftEdge = (float)Random.Range(-4, -2);
