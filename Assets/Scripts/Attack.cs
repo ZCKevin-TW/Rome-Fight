@@ -10,6 +10,7 @@ public class Attack : MonoBehaviour
     private PlayerControl Player;
     [SerializeField] private float PreTime = .5f;
     [SerializeField] private float PostTime = .5f;
+    [SerializeField] private HpBar TheBar;
     enum Status { 
         IdleStage,
         PreStage,
@@ -29,6 +30,7 @@ public class Attack : MonoBehaviour
     {
         return CurrentStatus != Status.IdleStage;
     }
+    
     void Start()
     {
         Player = GetComponent<PlayerControl>();
@@ -60,7 +62,10 @@ public class Attack : MonoBehaviour
     {
         float SightX = Player.GetSightX();
         if (SightX >= LeftEdge && SightX <= RightEdge)
+        {
+            TheBar.DecreaseBigHP();
             Debug.Log("HIT");
+        }
         else
             Debug.Log("MISS");
 
