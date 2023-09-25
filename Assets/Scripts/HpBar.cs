@@ -31,18 +31,17 @@ public class HpBar : MonoBehaviour
     {
     }
 
-    public void DecreaseBigHP()
+    public void DecreaseHP(bool IsBig)
     {
-        HP -= BigHP;
-        ChangeBar();
-    }
+        if (IsBig)
+            HP -= BigHP;
+        else
+            HP -= SmallHP;
 
-    public void DecreaseSmallHP()
-    {
-        HP -= SmallHP;
-        ChangeBar();
-    }
+        if (HP < 0) HP = 0;
 
+        ChangeBar();
+    } 
     private void ChangeBar()
     {
         Rec.sizeDelta = new Vector2(OriginWidth * ((float)HP / OriginHP), OriginHeight);
