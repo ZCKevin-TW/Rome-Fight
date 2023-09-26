@@ -1,91 +1,69 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class Attack : MonoBehaviour
+public class Defend : MonoBehaviour
 {
     // Start is called before the first frame update
-    private float LeftEdge, RightEdge;
-    private PlayerControl Player;
     [SerializeField] private float PreTime = .5f;
+    [SerializeField] private float DefendTime = .5f;
     [SerializeField] private float PostTime = .5f;
+    private PlayerControl Player;
     enum Status { 
         IdleStage,
         PreStage,
+        DefendingStage,
         PostStage,
-        // CooldownStage
+        CooldownStage
     };
     private Status CurrentStatus; 
     void SetStatus(Status status)
     {
         CurrentStatus = status;
     }
-    public bool Moveable()
+    void Start()
     {
-        return CurrentStatus != Status.PreStage; 
-    }
-    public bool Vulnerable()
-    {
-        return CurrentStatus == Status.PostStage;
+        SetStatus(Status.IdleStage);
+        Player = GetComponent<PlayerControl>();
     }
     public bool IsActive()
     {
+    // Means I am in a life cycle of blocking, doesn't mean I am blocking!
         return CurrentStatus != Status.IdleStage;
     }
-    
-    void Start()
+    public bool IsBlocking()
     {
-        Player = GetComponent<PlayerControl>();
-        SetStatus(Status.IdleStage);
-        RightEdge = (float)Random.Range(2, 4);
-        LeftEdge = (float)Random.Range(-4, -2);
-        Debug.Log(LeftEdge);
-        Debug.Log(RightEdge);
+        return CurrentStatus == Status.DefendingStage;
     }
-
     IEnumerator Trigger()
     {
-        Debug.Log("Start attacking procedure");
         SetStatus(Status.PreStage);
         yield return new WaitForSeconds(PreTime);
-        AttackEvent();
-        yield return null;
+        SetStatus(Status.DefendingStage);
+        Debug.Log("Start blocking");
+        yield return new WaitForSeconds(DefendTime);
         SetStatus(Status.PostStage);
+        Debug.Log("Blocking end");
         yield return new WaitForSeconds(PostTime); 
         SetStatus(Status.IdleStage);
         Player.ResetCancelCnt();
-        Debug.Log("Attack end");
         yield return null; 
     }
     public void Cancel()
     {
         if (IsActive())
         {
-            Debug.Log("Attack is cancelled");
             SetStatus(Status.IdleStage);
+            Debug.Log("Block is cancelled");
             StopCoroutine("Trigger");
         }
     }
     // Update is called once per frame
-    public void Fire()
+    public void Block()
     {
         if (!IsActive())
             StartCoroutine(Trigger());
     }
-    public void AttackEvent()
-    {
-        /*
-        float SightX = Player.GetSightX();
-        if (SightX >= LeftEdge && SightX <= RightEdge)
-        {
-            TheBar.DecreaseHP(false);
-            Debug.Log("HIT");
-        }
-        else
-            Debug.Log("MISS");
 
-        Debug.Log(SightX);
-        */
-    }
+    // Update is called once per frame
 }

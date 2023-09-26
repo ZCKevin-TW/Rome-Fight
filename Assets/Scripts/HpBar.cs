@@ -31,19 +31,18 @@ public class HpBar : MonoBehaviour
     {
     }
 
-    public void DecreaseBigHP()
+    public void DecreaseHP(bool IsBig)
     {
-        HP -= BigHP;
-        EnemyChangeBar();
-    }
+        if (IsBig)
+            HP -= BigHP;
+        else
+            HP -= SmallHP;
 
-    public void EnemyDecreaseSmallHP()
-    {
-        HP -= SmallHP;
-        EnemyChangeBar();
-    }
+        if (HP < 0) HP = 0;
 
-    private void EnemyChangeBar()
+        ChangeBar();
+    } 
+    private void ChangeBar()
     {
         Rec.sizeDelta = new Vector2(OriginWidth * ((float)HP / OriginHP), OriginHeight);
         float offset = (float)(OriginHP - HP) / OriginHP / 2 * OriginWidth;
