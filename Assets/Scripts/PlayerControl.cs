@@ -64,7 +64,8 @@ public class PlayerControl : MonoBehaviour
     {
         if (!DefendManager.IsBlocking())
         {
-            HpManager.DecreaseHP(AttackManager.Vulnerable());
+            if (HpManager != null)
+                HpManager.DecreaseHP(AttackManager.Vulnerable());
             // Oh no, I am hit, all my current activities are cancelled
             DefendManager.Cancel();
             AttackManager.Cancel();
@@ -72,9 +73,5 @@ public class PlayerControl : MonoBehaviour
             return true;
         }
         return false;
-    }
-    public float GetSightX()
-    {
-        return MoveManager.GetSightX();
     }
 }
