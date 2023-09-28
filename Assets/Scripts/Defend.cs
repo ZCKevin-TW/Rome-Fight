@@ -62,7 +62,7 @@ public class Defend : MonoBehaviour
     public void Block()
     {
         if (!IsActive())
-            StartCoroutine(Trigger());
+            StartCoroutine("Trigger");
     }
 
     // Update is called once per frame

@@ -10,6 +10,8 @@ public class Attack : MonoBehaviour
     private PlayerControl Player;
     [SerializeField] private float PreTime = .5f;
     [SerializeField] private float PostTime = .5f;
+    [SerializeField] private float BlockedPenalty = .5f;
+    [SerializeField] private BoxCollider2D AimPoint;
     enum Status { 
         IdleStage,
         PreStage,
@@ -37,7 +39,8 @@ public class Attack : MonoBehaviour
     void Start()
     {
         Player = GetComponent<PlayerControl>();
-        SetStatus(Status.IdleStage);
+        SetStatus(Status.IdleStage); 
+
         RightEdge = (float)Random.Range(2, 4);
         LeftEdge = (float)Random.Range(-4, -2);
         Debug.Log(LeftEdge);
@@ -49,10 +52,14 @@ public class Attack : MonoBehaviour
         Debug.Log("Start attacking procedure");
         SetStatus(Status.PreStage);
         yield return new WaitForSeconds(PreTime);
-        AttackEvent();
-        yield return null;
+        bool IsBlocked = AttackEvent();
         SetStatus(Status.PostStage);
-        yield return new WaitForSeconds(PostTime); 
+        if (!IsBlocked)
+            yield return new WaitForSeconds(PostTime);
+        else {
+            Debug.Log("I am blocked, now wait longer");
+            yield return new WaitForSeconds(PostTime + BlockedPenalty);
+        }
         SetStatus(Status.IdleStage);
         Player.ResetCancelCnt();
         Debug.Log("Attack end");
@@ -71,21 +78,34 @@ public class Attack : MonoBehaviour
     public void Fire()
     {
         if (!IsActive())
-            StartCoroutine(Trigger());
+            StartCoroutine("Trigger");
     }
-    public void AttackEvent()
+    // If the attack was blocked, return true;
+    // else return fales;
+    public bool AttackEvent()
     {
-        /*
-        float SightX = Player.GetSightX();
-        if (SightX >= LeftEdge && SightX <= RightEdge)
-        {
-            TheBar.DecreaseHP(false);
-            Debug.Log("HIT");
+        Debug.Log("Attack! " + AimPoint.ToString());
+        // the 5 should be set to the maximum number of collider that hit it
+        Collider2D[] HitObjects = new Collider2D[5];
+        int NumHit = AimPoint.OverlapCollider(new ContactFilter2D().NoFilter(), HitObjects);
+        Debug.Log(AimPoint.transform.position);
+        for (int i = 0;i < NumHit;++i) {
+            if (HitObjects[i].tag == "Enemy")
+            {
+                Debug.Log(HitObjects[i].name); 
+                GameObject Enemy = HitObjects[i].gameObject;
+                if (Enemy.GetComponent<PlayerControl>().IsHit())
+                {
+                    Debug.Log("Hit enemy Success");
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
         }
-        else
-            Debug.Log("MISS");
-
-        Debug.Log(SightX);
-        */
+        Debug.Log("Hit " + NumHit);
+        return false;
     }
 }
