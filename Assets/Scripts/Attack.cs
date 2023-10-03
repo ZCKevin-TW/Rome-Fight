@@ -12,6 +12,7 @@ public class Attack : MonoBehaviour
     [SerializeField] private float PostTime = .5f;
     [SerializeField] private float BlockedPenalty = .5f;
     [SerializeField] private BoxCollider2D AimPoint;
+
     enum Status { 
         IdleStage,
         PreStage,

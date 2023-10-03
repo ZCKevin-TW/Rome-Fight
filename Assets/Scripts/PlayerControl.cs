@@ -10,6 +10,7 @@ public class PlayerControl : MonoBehaviour
     private Defend DefendManager;
     private int CancelCnt;
     [SerializeField] private HpBar HpManager;
+    private Animator anim;
     void Start()
     {
         MoveManager = GetComponent<PlayerMovement>();

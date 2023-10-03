@@ -9,6 +9,7 @@ public class Defend : MonoBehaviour
     [SerializeField] private float DefendTime = .5f;
     [SerializeField] private float PostTime = .5f;
     private PlayerControl Player;
+    private Animator anim;
     enum Status { 
         IdleStage,
         PreStage,
@@ -25,6 +26,7 @@ public class Defend : MonoBehaviour
     {
         SetStatus(Status.IdleStage);
         Player = GetComponent<PlayerControl>();
+        anim = GetComponent<Animator>();
     }
     public bool IsActive()
     {
@@ -37,6 +39,7 @@ public class Defend : MonoBehaviour
     }
     IEnumerator Trigger()
     {
+        anim.SetBool("Defense", true);
         SetStatus(Status.PreStage);
         yield return new WaitForSeconds(PreTime);
         SetStatus(Status.DefendingStage);
@@ -44,6 +47,7 @@ public class Defend : MonoBehaviour
         yield return new WaitForSeconds(DefendTime);
         SetStatus(Status.PostStage);
         Debug.Log("Blocking end");
+        anim.SetBool("Defense", false);
         yield return new WaitForSeconds(PostTime); 
         SetStatus(Status.IdleStage);
         Player.ResetCancelCnt();
