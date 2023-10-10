@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6aacd391c740c9e45ac42283691a0297
+guid: be1ba9a077366084f8224cb6a194e62f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,43 +117,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerDefenseSheet_0
+      name: PlayerAttakc_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 500
-        height: 500
+        width: 1600
+        height: 2228
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 355429c96ae82fb41804fed15e4b51b3
-      internalID: -1726809399
+      spriteID: 17815166be9e99340902cf2a8b24b891
+      internalID: 1493886798
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerDefenseSheet_1
+      name: PlayerAttakc_1
       rect:
         serializedVersion: 2
-        x: 500
+        x: 1600
         y: 0
-        width: 500
-        height: 500
+        width: 1600
+        height: 2228
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef541ce7979a4f846ba237075cc5df44
-      internalID: 665303204
+      spriteID: 739825ba4f3e88141a0e2b197156ef5e
+      internalID: 1297317501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerAttakc_2
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 0
+        width: 1600
+        height: 2228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55900269ce5d7c7418c4679db40fb35d
+      internalID: -1062443917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerAttakc_3
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 0
+        width: 1600
+        height: 2228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 075f4760e211ba04bba1829370f2b616
+      internalID: -816418786
       vertices: []
       indices: 
       edges: []
@@ -169,8 +211,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PlayerDefenseSheet_0: -1726809399
-      PlayerDefenseSheet_1: 665303204
+      PlayerAttakc_0: 1493886798
+      PlayerAttakc_1: 1297317501
+      PlayerAttakc_2: -1062443917
+      PlayerAttakc_3: -816418786
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

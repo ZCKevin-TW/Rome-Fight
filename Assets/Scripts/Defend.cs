@@ -48,7 +48,7 @@ public class Defend : MonoBehaviour
         SetStatus(Status.PostStage);
         Debug.Log("Blocking end");
         anim.SetBool("Defense", false);
-        yield return new WaitForSeconds(PostTime); 
+        yield return new WaitForSeconds(PostTime);
         SetStatus(Status.IdleStage);
         Player.ResetCancelCnt();
         yield return null; 
@@ -59,6 +59,7 @@ public class Defend : MonoBehaviour
         {
             SetStatus(Status.IdleStage);
             Debug.Log("Block is cancelled");
+            anim.SetBool("Defense", false);
             StopCoroutine("Trigger");
         }
     }

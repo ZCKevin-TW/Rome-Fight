@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6aacd391c740c9e45ac42283691a0297
+guid: cb45e69d9000a0143a0e48a32ba74d2e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerDefense_0
+      name: CountDown_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1600
-        height: 2228
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0c5e412c8a5cbbd46847048ca45e88a4
-      internalID: 1751378492
+      spriteID: acc3ba03a26aa9f4e8ae2a3b5a0ad4a0
+      internalID: 472985003
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerDefense_1
+      name: CountDown_1
       rect:
         serializedVersion: 2
-        x: 1600
+        x: 1920
         y: 0
-        width: 1600
-        height: 2228
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,8 +152,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 14b2deee42a5e9c4dacbf73be2544b13
-      internalID: -1970700362
+      spriteID: b8767267b088d83458fcbf52a65486dd
+      internalID: 1647848855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CountDown_2
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 0
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28007ed8f0c8267408a82a149d012d7a
+      internalID: 982567428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CountDown_3
+      rect:
+        serializedVersion: 2
+        x: 5760
+        y: 0
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 951c4a91b6a9c5746b4cbc1141b5a2ae
+      internalID: 2065418164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CountDown_4
+      rect:
+        serializedVersion: 2
+        x: 7680
+        y: 0
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1946d6b520861774e9c30fd230c9421e
+      internalID: -1077641110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CountDown_5
+      rect:
+        serializedVersion: 2
+        x: 9600
+        y: 0
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29b5e016097af5e489f194b78a112426
+      internalID: 800802442
       vertices: []
       indices: 
       edges: []
@@ -169,8 +253,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PlayerDefense_0: 1751378492
-      PlayerDefense_1: -1970700362
+      CountDown_0: 472985003
+      CountDown_1: 1647848855
+      CountDown_2: 982567428
+      CountDown_3: 2065418164
+      CountDown_4: -1077641110
+      CountDown_5: 800802442
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
