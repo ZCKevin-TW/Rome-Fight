@@ -5,19 +5,19 @@ using UnityEngine;
 public class Defend : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private float PreTime = .5f;
+    [SerializeField] private float PreTime = .1f;
     [SerializeField] private float DefendTime = .5f;
     [SerializeField] private float PostTime = .5f;
     private PlayerControl Player;
     private Animator anim;
-    enum Status { 
+    public enum Status { 
         IdleStage,
         PreStage,
         DefendingStage,
         PostStage,
         CooldownStage
     };
-    private Status CurrentStatus; 
+    public Status CurrentStatus; 
     void SetStatus(Status status)
     {
         CurrentStatus = status;
@@ -26,7 +26,7 @@ public class Defend : MonoBehaviour
     {
         SetStatus(Status.IdleStage);
         Player = GetComponent<PlayerControl>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
     }
     public bool IsActive()
     {
@@ -57,10 +57,10 @@ public class Defend : MonoBehaviour
     {
         if (IsActive())
         {
+            StopCoroutine("Trigger");
             SetStatus(Status.IdleStage);
             Debug.Log("Block is cancelled");
             anim.SetBool("Defense", false);
-            StopCoroutine("Trigger");
         }
     }
     // Update is called once per frame
