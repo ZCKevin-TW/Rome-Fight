@@ -7,28 +7,30 @@ using UnityEngine.InputSystem;
 public class Attack : MonoBehaviour
 {
     // Start is called before the first frame update
-    private float LeftEdge, RightEdge;
     private PlayerControl Player;
-    [SerializeField] private float PreTime = .5f;
+    [SerializeField] private float PreTime = .3f;
     [SerializeField] private float PostTime = .5f;
     [SerializeField] private float BlockedPenalty = .5f;
-    [SerializeField] private BoxCollider2D AimPoint;
+    public float AttackRange = 2f;
+    //[SerializeField] private float AttackRange = 1f;
+    // [SerializeField] private BoxCollider2D AimPoint;
+    private Coroutine lastRoutine = null;
     private Animator anim;
 
-    enum Status { 
+    public enum Status { 
         IdleStage,
         PreStage,
         PostStage,
         // CooldownStage
     };
-    private Status CurrentStatus; 
+    public Status CurrentStatus; 
     void SetStatus(Status status)
     {
         CurrentStatus = status;
     }
     public bool Moveable()
     {
-        return CurrentStatus != Status.PreStage; 
+        return !InPre();
     }
     public bool Vulnerable()
     {
@@ -38,26 +40,27 @@ public class Attack : MonoBehaviour
     {
         return CurrentStatus != Status.IdleStage;
     }
+    public bool InPre()
+    {
+        return CurrentStatus == Status.PreStage;
+    }
     
     void Start()
     {
         Player = GetComponent<PlayerControl>();
         SetStatus(Status.IdleStage); 
-
-        RightEdge = (float)Random.Range(2, 4);
-        LeftEdge = (float)Random.Range(-4, -2);
-        Debug.Log(LeftEdge);
-        Debug.Log(RightEdge);
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     IEnumerator Trigger()
     {
+        Player.NoteAttack();
         Debug.Log("Start attacking procedure");
         anim.SetBool("Attack", true);
         SetStatus(Status.PreStage);
         yield return new WaitForSeconds(PreTime);
         bool IsBlocked = AttackEvent();
+        Debug.Log("Now sete the status to post stage");
         SetStatus(Status.PostStage);
         if (!IsBlocked)
         {
@@ -68,20 +71,23 @@ public class Attack : MonoBehaviour
             Debug.Log("I am blocked, now wait longer");
             yield return new WaitForSeconds(PostTime + BlockedPenalty);
         }
+        Debug.Log("Set to Idel staget");
         SetStatus(Status.IdleStage);
         Player.ResetCancelCnt();
         Debug.Log("Attack end");
         anim.SetBool("Attack", false);
+
+        lastRoutine = null;
         yield return null; 
     }
     public void Cancel()
     {
         if (IsActive())
-        {
-            Debug.Log("Attack is cancelled");
-            anim.SetBool("Attack", false);
-            SetStatus(Status.IdleStage);
-            StopCoroutine("Trigger");
+        { 
+            StopCoroutine(lastRoutine);
+            lastRoutine = null;
+            anim.SetBool("Attack", false); 
+            SetStatus(Status.IdleStage); 
         }
     }
     // Update is called once per frame
@@ -89,36 +95,23 @@ public class Attack : MonoBehaviour
     {
         if (!IsActive())
         {
-            StartCoroutine("Trigger");
+            lastRoutine = StartCoroutine(Trigger());
         }
     }
     // If the attack was blocked, return true;
     // else return fales;
     public bool AttackEvent()
-    {
-        Debug.Log("Attack! " + AimPoint.ToString());
-        // the 5 should be set to the maximum number of collider that hit it
-        Collider2D[] HitObjects = new Collider2D[5];
-        int NumHit = AimPoint.OverlapCollider(new ContactFilter2D().NoFilter(), HitObjects);
-        Debug.Log(AimPoint.transform.position);
-        for (int i = 0;i < NumHit;++i) {
-            if (HitObjects[i].tag == "Enemy")
+    { 
+        if (Mathf.Abs(Player.EnemyDelta()) <= AttackRange)
+        {
+            if (Player.Enemy.IsHit())
             {
-                Debug.Log(HitObjects[i].name); 
-                GameObject Enemy = HitObjects[i].gameObject;
-                if (Enemy.GetComponent<PlayerControl>().IsHit())
-                {
-                    Debug.Log("Hit enemy Success");
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
+                // Attack success
+                return false;
             }
+            else
+                return true; 
         }
-        Debug.Log("Hit " + NumHit);
-        
         return false;
     }
 }
