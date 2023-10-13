@@ -9,7 +9,7 @@ public class Defend : MonoBehaviour
     [SerializeField] private float DefendTime = .5f;
     [SerializeField] private float PostTime = .5f;
     private PlayerControl Player;
-    private Animator anim;
+    private Animator Anim;
     public enum Status { 
         IdleStage,
         PreStage,
@@ -26,7 +26,7 @@ public class Defend : MonoBehaviour
     {
         SetStatus(Status.IdleStage);
         Player = GetComponent<PlayerControl>();
-        anim = GetComponentInChildren<Animator>();
+        Anim = GetComponentInChildren<Animator>();
     }
     public bool IsActive()
     {
@@ -37,9 +37,18 @@ public class Defend : MonoBehaviour
     {
         return CurrentStatus == Status.DefendingStage;
     }
+
+    private void ResetAnim()
+    {
+        Anim.SetBool("PreAttack", false);
+        Anim.SetBool("InAttack", false);
+        Anim.SetBool("PostAttack", false);
+        Anim.SetBool("InDefense", false);
+        Anim.SetBool("InDizzy", false);
+    }
     IEnumerator Trigger()
     {
-        anim.SetBool("Defense", true);
+        Anim.SetBool("InDefense", true);
         SetStatus(Status.PreStage);
         yield return new WaitForSeconds(PreTime);
         SetStatus(Status.DefendingStage);
@@ -47,7 +56,7 @@ public class Defend : MonoBehaviour
         yield return new WaitForSeconds(DefendTime);
         SetStatus(Status.PostStage);
         Debug.Log("Blocking end");
-        anim.SetBool("Defense", false);
+        Anim.SetBool("InDefense", false);
         yield return new WaitForSeconds(PostTime);
         SetStatus(Status.IdleStage);
         Player.ResetCancelCnt();
@@ -60,7 +69,7 @@ public class Defend : MonoBehaviour
             StopCoroutine("Trigger");
             SetStatus(Status.IdleStage);
             Debug.Log("Block is cancelled");
-            anim.SetBool("Defense", false);
+            ResetAnim();
         }
     }
     // Update is called once per frame
