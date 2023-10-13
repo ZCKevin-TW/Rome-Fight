@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 5ca8d40ac5603af4483366b13bb1d37b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ad088d7b76940458b235feb3196242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 7.5
 --- !u!50 &476899161707766337
 Rigidbody2D:
   serializedVersion: 4
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50421d66fdad19b419eafa376fe7596a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreTime: 0.5
+  PreTime: 0.3
   PostTime: 0.5
   BlockedPenalty: 0.5
   AttackRange: 1
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55ea5d1df848c243b1e62b37c5ebfa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreTime: 0.5
+  PreTime: 0.1
   DefendTime: 0.5
   PostTime: 0.5
   CurrentStatus: 0
