@@ -408,7 +408,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 476899161707766339, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
       propertyPath: PostTime
-      value: 0.3
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 476899161707766339, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
+      propertyPath: BlockedPenalty
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 476899161707766342, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
       propertyPath: m_Name
@@ -1385,6 +1389,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2313800429624699319, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
+      propertyPath: StrategySwitchTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313800429879619248, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
+      propertyPath: PostTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313800429879619248, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
+      propertyPath: BlockedPenalty
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2313800429879619251, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
       propertyPath: m_RootOrder
       value: 7

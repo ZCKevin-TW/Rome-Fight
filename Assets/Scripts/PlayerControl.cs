@@ -10,6 +10,7 @@ public class PlayerControl : MonoBehaviour
     private Attack AttackManager;
     private Defend DefendManager;
     private int CancelCnt;
+    private bool Frozen;
     [SerializeField] private bool FromUser = true;
     [SerializeField] private HpBar HpManager;
     private EnemyStrategy Brain;
@@ -20,6 +21,7 @@ public class PlayerControl : MonoBehaviour
         DefendManager = GetComponent<Defend>();
         Brain = GetComponent<EnemyStrategy>();
         CancelCnt = 0;
+        Frozen = false;
     }
     public void ResetCancelCnt()
     {
@@ -37,15 +39,15 @@ public class PlayerControl : MonoBehaviour
             if (Input.GetButton("Fire2")) pressDefend(); 
             pressMove(Input.GetAxisRaw("Horizontal"));
         }
-        MoveManager.SetFreeze(!AttackManager.Moveable());
+        MoveManager.SetFreeze(!AttackManager.Moveable() || Frozen);
     }
     public void GetReadyForAttack()
     {
-        Debug.Log("Enemy controller getting ready");
+        // Debug.Log("Enemy controller getting ready");
         if (Brain != null)
         {
             Brain.ReactToAttack();
-            Debug.Log("Brain Not Null");
+            //Debug.Log("Brain Not Null");
         }
     }
     // Enemy Is within attack range;
@@ -63,7 +65,8 @@ public class PlayerControl : MonoBehaviour
         MoveManager.SetInput(dx); 
     }
     public void pressAttack()
-    { 
+    {
+        if (Frozen) return;
         if (DefendManager.IsActive()) 
         {
             if (CancelCnt == 0)
@@ -95,6 +98,7 @@ public class PlayerControl : MonoBehaviour
     }
     // The enemy hit me, return whether I am hit.
 
+
     public bool IsHit()
     {
         if (!DefendManager.IsBlocking())
@@ -105,9 +109,17 @@ public class PlayerControl : MonoBehaviour
             DefendManager.Cancel();
             AttackManager.Cancel();
             ResetCancelCnt();
+            StartCoroutine(BanMovement(1));
             return true;
         }
         return false;
+    }
+    private IEnumerator BanMovement(float last_time)
+    {
+        Frozen = true;
+        yield return new WaitForSeconds(last_time);
+        Frozen = false;
+
     }
     // the direction of enemy to me with length
     public float EnemyDelta()

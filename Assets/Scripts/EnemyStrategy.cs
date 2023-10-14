@@ -9,6 +9,7 @@ public class EnemyStrategy : MonoBehaviour
     [SerializeField] private float MaxPatterTime = .8f;
     [SerializeField] private float ReactTime = .1f;
     [SerializeField] private float CloseDis = .1f;
+    [SerializeField] private float StrategySwitchTime = 5f;
     private float dx;
     private int InVisionTime;
     enum Mode
@@ -22,9 +23,9 @@ public class EnemyStrategy : MonoBehaviour
     {
         PlayerAPI = GetComponent<PlayerControl>();
         Debug.Log("awaking");
-        //StartCoroutine("RandomMoving");
         InVisionTime = 0;
         CurrentMode = Mode.Idle;
+        StartCoroutine("RandomMoving");
         StartCoroutine("Switching");
     } 
 
@@ -65,9 +66,10 @@ public class EnemyStrategy : MonoBehaviour
             }
             else
             {
+                Debug.Log("Now attacking");
                 CurrentMode = Mode.Attack;
             }
-            float RemainTime = Random.Range(0f, MaxPatterTime);
+            float RemainTime = Random.Range(0f, StrategySwitchTime);
             yield return new WaitForSeconds(RemainTime); 
         } 
     }
@@ -90,6 +92,7 @@ public class EnemyStrategy : MonoBehaviour
     }
     public void ReactToAttack()
     {
+        Debug.Log("trigger reacting");
         StartCoroutine(_ReactToAttack()); 
     }
     IEnumerator RandomMoving()

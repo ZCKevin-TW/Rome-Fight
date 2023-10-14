@@ -22,6 +22,7 @@ public class Attack : MonoBehaviour
         IdleStage,
         PreStage,
         PostStage,
+        BlockedStage
         // CooldownStage
     };
     public Status CurrentStatus; 
@@ -31,7 +32,7 @@ public class Attack : MonoBehaviour
     }
     public bool Moveable()
     {
-        return !InPre();
+        return !InPre() && CurrentStatus != Status.BlockedStage;
     }
     public bool Vulnerable()
     {
@@ -64,7 +65,7 @@ public class Attack : MonoBehaviour
     IEnumerator Trigger()
     {
         Player.NoteAttack();
-        Debug.Log("Start attacking procedure");
+        // Debug.Log("Start attacking procedure");
         Anim.SetBool("PreAttack", true);
         SetStatus(Status.PreStage);
         yield return new WaitForSeconds(PreTime);
@@ -75,25 +76,27 @@ public class Attack : MonoBehaviour
         yield return new WaitForSeconds(InTime);
         Anim.SetBool("InAttack", false);
 
-        Debug.Log("Now sete the status to post stage");
-        SetStatus(Status.PostStage);
+        // Debug.Log("Now sete the status to post stage");
         if (!IsBlocked)
         {
+            SetStatus(Status.PostStage);
             Anim.SetBool("PostAttack", true);
+            Debug.Log("Cannot attack for " + PostTime + " sec(s)");
             yield return new WaitForSeconds(PostTime);
             Anim.SetBool("PostAttack", false);
         }
         else
         {
-            Debug.Log("I am blocked, now wait longer");
+            SetStatus(Status.BlockedStage);
+        //    Debug.Log("I am blocked, now wait longer");
             Anim.SetBool("InDizzy", true);
-            yield return new WaitForSeconds(PostTime + BlockedPenalty);
+            Debug.Log("Being Dizzy for " + (BlockedPenalty));
+            yield return new WaitForSeconds(BlockedPenalty);
             Anim.SetBool("InDizzy", false);
         }
-        Debug.Log("Set to Idel staget");
+        Debug.Log("Go back to idle");
         SetStatus(Status.IdleStage);
         Player.ResetCancelCnt();
-        Debug.Log("Attack end");
         lastRoutine = null;
         //ResetAnim();
         yield return null; 
@@ -101,7 +104,8 @@ public class Attack : MonoBehaviour
     public void Cancel()
     {
         if (IsActive())
-        { 
+        {
+            Debug.Log("Return to idle");
             StopCoroutine(lastRoutine);
             ResetAnim();
             lastRoutine = null;
