@@ -14,6 +14,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private bool FromUser = true;
     [SerializeField] private HpBar HpManager;
     private EnemyStrategy Brain;
+    [SerializeField] float Hitted_panelty = 1.0f;
     void Awake()
     {
         MoveManager = GetComponent<PlayerMovement>();
@@ -109,7 +110,7 @@ public class PlayerControl : MonoBehaviour
             DefendManager.Cancel();
             AttackManager.Cancel();
             ResetCancelCnt();
-            StartCoroutine(BanMovement(1));
+            StartCoroutine(BanMovement(Hitted_panelty));
             return true;
         }
         return false;

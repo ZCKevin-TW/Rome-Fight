@@ -430,6 +430,10 @@ PrefabInstance:
       propertyPath: HpManager
       value: 
       objectReference: {fileID: 1123862948}
+    - target: {fileID: 476899161707766461, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
+      propertyPath: Hitted_panelty
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
 --- !u!1 &177202591
