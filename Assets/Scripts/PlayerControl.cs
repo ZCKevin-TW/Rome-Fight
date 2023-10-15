@@ -83,6 +83,7 @@ public class PlayerControl : MonoBehaviour
     }
     public void pressDefend()
     {
+        if (Frozen) return;
         if (AttackManager.IsActive())
         {
             if (CancelCnt == 0)
@@ -114,6 +115,11 @@ public class PlayerControl : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void BanMovementOut()
+    {
+        Frozen = true;
     }
     private IEnumerator BanMovement(float last_time)
     {
