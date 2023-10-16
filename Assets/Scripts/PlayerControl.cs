@@ -14,7 +14,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private bool FromUser = true;
     [SerializeField] private HpBar HpManager;
     private EnemyStrategy Brain;
-    [SerializeField] float Hitted_panelty = 1.0f;
+    [SerializeField] float WoundedPenalty = 1.0f;
 
     [SerializeField] private float LbodyOffset, RbodyOffset, AttackPointOffset;
     public float Lborder() => LbodyOffset + MoveManager.GetPos();
@@ -139,7 +139,7 @@ public class PlayerControl : MonoBehaviour
             DefendManager.Cancel();
             AttackManager.Cancel();
             ResetCancelCnt();
-            StartCoroutine(BanMovement(Hitted_panelty));
+            StartCoroutine(BanMovement(WoundedPenalty));
             return true;
         }
         return false;

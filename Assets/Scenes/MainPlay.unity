@@ -408,7 +408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 476899161707766339, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
       propertyPath: PostTime
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 476899161707766339, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
       propertyPath: BlockedPenalty
@@ -421,6 +421,10 @@ PrefabInstance:
     - target: {fileID: 476899161707766460, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
       propertyPath: PreTime
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 476899161707766460, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
+      propertyPath: DefendTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 476899161707766461, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
       propertyPath: Enemy
@@ -1419,7 +1423,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2313800429879619248, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
       propertyPath: PostTime
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2313800429879619248, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
       propertyPath: BlockedPenalty
@@ -1500,6 +1504,10 @@ PrefabInstance:
     - target: {fileID: 2313800429879619279, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
       propertyPath: PreTime
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313800429879619279, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
+      propertyPath: DefendTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2313800430383049033, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
       propertyPath: m_IsActive
