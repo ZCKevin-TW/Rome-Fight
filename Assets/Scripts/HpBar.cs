@@ -45,8 +45,8 @@ public class HpBar : MonoBehaviour
     private void ChangeBar()
     {
         Rec.sizeDelta = new Vector2(OriginWidth * ((float)HP / OriginHP), OriginHeight);
-        float offset = (float)(OriginHP - HP) / OriginHP / 2 * OriginWidth;
-        Rec.anchoredPosition = new Vector2(PositionX-offset, PositionY);
+        //float offset = (float)(OriginHP - HP) / OriginHP / 2 * OriginWidth;
+        Rec.anchoredPosition = new Vector2(PositionX, PositionY);
     }
 
 }
