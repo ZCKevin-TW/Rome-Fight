@@ -15,6 +15,32 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private HpBar HpManager;
     private EnemyStrategy Brain;
     [SerializeField] float Hitted_panelty = 1.0f;
+
+    [SerializeField] private float LbodyOffset, RbodyOffset, AttackPointOffset;
+    public float Lborder() => LbodyOffset + MoveManager.GetPos();
+    public float Rborder() => RbodyOffset + MoveManager.GetPos();
+    public float CenterPos() => (Lborder() + Rborder()) / 2;
+    public float GetAttackPoint() => AttackPointOffset + MoveManager.GetPos();
+    public bool InsideHitBox(float x) => Lborder() <= x && x <= Rborder();
+
+    // only -1, 0, 1 will be returned
+    public float AttackEnemyDirection()
+    {
+        const float eps = 1e-1f;
+        if (Mathf.Abs(GetAttackPoint() - Enemy.CenterPos()) <= eps)
+            return 0;
+        return GetAttackPoint() < Enemy.CenterPos() ? 1 : -1;
+    }
+    // only -1, 1 will be returned
+    public float EscapeEnemyDirection()
+    {
+        return CenterPos() < Enemy.GetAttackPoint() ? -1 : 1;
+    }
+    public float DangerDistance()
+    {
+        return Mathf.Abs(CenterPos() - Enemy.GetAttackPoint());
+    }
+
     void Awake()
     {
         MoveManager = GetComponent<PlayerMovement>();
@@ -52,10 +78,12 @@ public class PlayerControl : MonoBehaviour
         }
     }
     // Enemy Is within attack range;
+    /*
     public bool EnemyClose()
     {
         return Mathf.Abs(EnemyDelta()) <= AttackManager.AttackRange; 
     }
+    */
     public void NoteAttack()
     {
         Enemy.GetReadyForAttack();

@@ -12,12 +12,8 @@ public class Attack : MonoBehaviour
     [SerializeField] private float InTime = .1f;
     [SerializeField] private float PostTime = .5f;
     [SerializeField] private float BlockedPenalty = .5f;
-    public float AttackRange = 2f;
-    //[SerializeField] private float AttackRange = 1f;
-    // [SerializeField] private BoxCollider2D AimPoint;
     private Coroutine lastRoutine = null;
-    private Animator Anim;
-
+    private Animator Anim; 
     public enum Status { 
         IdleStage,
         PreStage,
@@ -124,8 +120,10 @@ public class Attack : MonoBehaviour
     // If the attack was blocked, return true;
     // else return fales;
     public bool AttackEvent()
-    { 
-        if (Mathf.Abs(Player.EnemyDelta()) <= AttackRange)
+    {
+        Debug.Log("Player hit at " + Player.GetAttackPoint());
+        Debug.Log("Enemy hitbox position between " + Player.Enemy.Lborder() + ", " + Player.Enemy.Rborder());
+        if (Player.Enemy.InsideHitBox(Player.GetAttackPoint()))
         {
             if (Player.Enemy.IsHit())
             {

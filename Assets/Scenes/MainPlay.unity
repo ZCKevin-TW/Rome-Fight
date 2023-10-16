@@ -427,12 +427,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 489955518}
     - target: {fileID: 476899161707766461, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
+      propertyPath: FromUser
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 476899161707766461, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
       propertyPath: HpManager
       value: 
       objectReference: {fileID: 1123862948}
     - target: {fileID: 476899161707766461, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
+      propertyPath: LbodyOffset
+      value: 1.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 476899161707766461, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
+      propertyPath: RbodyOffset
+      value: 3.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 476899161707766461, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
       propertyPath: Hitted_panelty
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 476899161707766461, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
+      propertyPath: AttackPointOffset
+      value: -3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
@@ -1394,6 +1410,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2313800429624699319, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313800429624699319, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
       propertyPath: StrategySwitchTime
       value: 2
       objectReference: {fileID: 0}
@@ -1458,9 +1478,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1470879889}
     - target: {fileID: 2313800429879619278, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
+      propertyPath: FromUser
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313800429879619278, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
       propertyPath: HpManager
       value: 
       objectReference: {fileID: 1689512814}
+    - target: {fileID: 2313800429879619278, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
+      propertyPath: LbodyOffset
+      value: -4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313800429879619278, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
+      propertyPath: RbodyOffset
+      value: -1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313800429879619278, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
+      propertyPath: AttackPointOffset
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2313800429879619279, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
       propertyPath: PreTime
       value: 0

@@ -16,6 +16,10 @@ public class PlayerMovement : MonoBehaviour
         rd = GetComponent<Rigidbody2D>();
         Frozen = false;
     }
+    public float GetPos()
+    {
+        return rd.position.x;
+    }
     public bool HitWall()
     {
         return Mathf.Abs(rd.position.x) == MoveLimit;
