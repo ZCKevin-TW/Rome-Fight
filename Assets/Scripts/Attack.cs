@@ -14,6 +14,7 @@ public class Attack : MonoBehaviour
     [SerializeField] private float BlockedPenalty = .5f;
     private Coroutine lastRoutine = null;
     private Animator Anim; 
+    private AudioSource Audio;
     public enum Status { 
         IdleStage,
         PreStage,
@@ -48,6 +49,7 @@ public class Attack : MonoBehaviour
         Player = GetComponent<PlayerControl>();
         SetStatus(Status.IdleStage); 
         Anim = GetComponentInChildren<Animator>();
+        Audio = GetComponent<AudioSource>();
     }
 
     private void ResetAnim()
@@ -68,6 +70,7 @@ public class Attack : MonoBehaviour
         Anim.SetBool("PreAttack", false);
 
         Anim.SetBool("InAttack", true);
+        Audio.Play();
         bool IsBlocked = AttackEvent();
         yield return new WaitForSeconds(InTime);
         Anim.SetBool("InAttack", false);
