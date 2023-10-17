@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: be1ba9a077366084f8224cb6a194e62f
+guid: 68c987b1dfc8b384fa48c178042a3890
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerAttakc_0
+      name: Dunked_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +131,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 17815166be9e99340902cf2a8b24b891
-      internalID: 1493886798
+      spriteID: 09ee8f73ed12d014da77b62a3cac35f0
+      internalID: 1061130652
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerAttakc_1
+      name: Dunked_1
       rect:
         serializedVersion: 2
         x: 1600
@@ -152,50 +152,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 739825ba4f3e88141a0e2b197156ef5e
-      internalID: 1297317501
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerAttakc_2
-      rect:
-        serializedVersion: 2
-        x: 3200
-        y: 0
-        width: 1600
-        height: 2228
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 55900269ce5d7c7418c4679db40fb35d
-      internalID: -1062443917
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerAttakc_3
-      rect:
-        serializedVersion: 2
-        x: 4800
-        y: 0
-        width: 1600
-        height: 2228
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 075f4760e211ba04bba1829370f2b616
-      internalID: -816418786
+      spriteID: ddb065ad41a9829478642867bb674009
+      internalID: -1373383987
       vertices: []
       indices: 
       edges: []
@@ -211,10 +169,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PlayerAttakc_0: 1493886798
-      PlayerAttakc_1: 1297317501
-      PlayerAttakc_2: -1062443917
-      PlayerAttakc_3: -816418786
+      Dunked_0: 1061130652
+      Dunked_1: -1373383987
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
