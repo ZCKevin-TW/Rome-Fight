@@ -10,6 +10,7 @@ public class EnemyStrategy : MonoBehaviour
     [SerializeField] private float ReactTime = .1f;
     [SerializeField] private float CloseDis = .1f;
     [SerializeField] private float StrategySwitchTime = 5f;
+    [SerializeField] private float OutterBlockProbability = .8f;
     private float dx;
     private int InVisionTime;
     enum Mode
@@ -83,7 +84,7 @@ public class EnemyStrategy : MonoBehaviour
         }
         else if (PlayerAPI.InsideHitBox(PlayerAPI.Enemy.GetAttackPoint()))
         {
-            if (Random.Range(0, 10) < 2) PlayerAPI.pressDefend();
+            if (Random.Range(0f, 1f) < OutterBlockProbability) PlayerAPI.pressDefend();
         } 
         else
         { 
