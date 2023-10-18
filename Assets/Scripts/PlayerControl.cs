@@ -139,22 +139,21 @@ public class PlayerControl : MonoBehaviour
             DefendManager.Cancel();
             AttackManager.Cancel();
             ResetCancelCnt();
-            StartCoroutine(BanMovement(WoundedPenalty));
+            BanMovement(WoundedPenalty);
             return true;
         }
         return false;
-    }
-
-    public void BanMovementOut()
-    {
-        Frozen = true;
-    }
-    private IEnumerator BanMovement(float last_time)
+    } 
+    private IEnumerator _BanMovement(float last_time)
     {
         Frozen = true;
         yield return new WaitForSeconds(last_time);
         Frozen = false;
 
+    } 
+    public void BanMovement(float last_time)
+    {
+        StartCoroutine(_BanMovement(last_time));
     }
     // the direction of enemy to me with length
     public float EnemyDelta()

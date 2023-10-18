@@ -90,7 +90,8 @@ public class Attack : MonoBehaviour
         //    Debug.Log("I am blocked, now wait longer");
             Anim.SetBool("InDizzy", true);
             Debug.Log("Being Dizzy for " + (BlockedPenalty));
-            Player.BanMovementOut();
+            Player.BanMovement(BlockedPenalty);
+            //Player.BanMovementOut();
             yield return new WaitForSeconds(BlockedPenalty);
             Anim.SetBool("InDizzy", false);
         }
