@@ -14,7 +14,12 @@ public class Attack : MonoBehaviour
     [SerializeField] private float BlockedPenalty = .5f;
     private Coroutine lastRoutine = null;
     private Animator Anim; 
-    private AudioSource Audio;
+
+    // Sound Effects
+    [SerializeField] private AudioSource swingSound;
+    [SerializeField] private AudioSource hitSound;
+    [SerializeField] private AudioSource dizzySound;
+
     public enum Status { 
         IdleStage,
         PreStage,
@@ -49,7 +54,6 @@ public class Attack : MonoBehaviour
         Player = GetComponent<PlayerControl>();
         SetStatus(Status.IdleStage); 
         Anim = GetComponentInChildren<Animator>();
-        Audio = GetComponent<AudioSource>();
     }
 
     private void ResetAnim()
@@ -70,7 +74,7 @@ public class Attack : MonoBehaviour
         Anim.SetBool("PreAttack", false);
 
         Anim.SetBool("InAttack", true);
-        Audio.Play();
+        swingSound.Play();
         bool IsBlocked = AttackEvent();
         yield return new WaitForSeconds(InTime);
         Anim.SetBool("InAttack", false);
@@ -89,10 +93,13 @@ public class Attack : MonoBehaviour
             SetStatus(Status.BlockedStage);
         //    Debug.Log("I am blocked, now wait longer");
             Anim.SetBool("InDizzy", true);
+            dizzySound.Play();
             Debug.Log("Being Dizzy for " + (BlockedPenalty));
             Player.BanMovement(BlockedPenalty);
             //Player.BanMovementOut();
             yield return new WaitForSeconds(BlockedPenalty);
+            // TODO(ZoeTsou): Fixed this bug... the sound won't stop
+            dizzySound.Stop();
             Anim.SetBool("InDizzy", false);
         }
         Debug.Log("Go back to idle");
@@ -122,7 +129,7 @@ public class Attack : MonoBehaviour
         }
     }
     // If the attack was blocked, return true;
-    // else return fales;
+    // else return false;
     public bool AttackEvent()
     {
         Debug.Log("Player hit at " + Player.GetAttackPoint());
@@ -132,6 +139,7 @@ public class Attack : MonoBehaviour
             if (Player.Enemy.IsHit())
             {
                 // Attack success
+                hitSound.Play();
                 return false;
             }
             else
