@@ -7,7 +7,10 @@ public class HpBar : MonoBehaviour
     // Start is called before the first frame update
     private int OriginHP, BigHP, SmallHP, HP;
     private float OriginWidth, OriginHeight, PositionX, PositionY;
+    private bool Started = false;
     [SerializeField] private GameObject HPBar;
+    [SerializeField] private GameController GameController;
+    [SerializeField] private bool isPlayer;
     RectTransform Rec;
     //[SerializeField] private PlayerControll playerControll;
 
@@ -27,18 +30,19 @@ public class HpBar : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-    }
-
     public void DecreaseHP(bool IsBig)
     {
+        if (!Started) return;
         if (IsBig)
             HP -= BigHP;
         else
             HP -= SmallHP;
 
-        if (HP < 0) HP = 0;
+        if (HP <= 0)
+        {
+            HP = 0;
+            GameController.GameFinished(isPlayer);
+        }
 
         ChangeBar();
     } 
@@ -49,4 +53,8 @@ public class HpBar : MonoBehaviour
         Rec.anchoredPosition = new Vector2(PositionX, PositionY);
     }
 
+    public void SetStarted(bool target)
+    {
+        Started = target;
+    }
 }
