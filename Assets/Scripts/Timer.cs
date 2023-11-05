@@ -7,17 +7,17 @@ using TMPro;
 public class Timer : MonoBehaviour
 {
     private float timeRemaining = 60;
-    private bool timerIsRunning = false;
+    // private bool timerIsRunning = false;
     [SerializeField] private TMP_Text timeText;
     [SerializeField] private GameController GameController;
     private void Start()
     {
         // Starts the timer automatically
-        timerIsRunning = true;
+        // timerIsRunning = true;
     }
     void Update()
     {
-        if (timerIsRunning)
+        if (GameController.battling)
         {
             if (timeRemaining > 0)
             {
@@ -28,7 +28,7 @@ public class Timer : MonoBehaviour
             {
                 Debug.Log("Time has run out!");
                 timeRemaining = 0;
-                timerIsRunning = false;
+                // timerIsRunning = false;
                 GameController.GameFinished(true);
             }
         }
