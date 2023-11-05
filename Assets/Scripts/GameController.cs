@@ -16,9 +16,12 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject WinString;
     [SerializeField] private GameObject LoseString;
 
+    public bool battling;
+
     // Start is called before the first frame update
     void Start()
     {
+        battling = false;
         countdownSound.Play();
         Invoke("GameStart", 3);
     }
@@ -26,6 +29,7 @@ public class GameController : MonoBehaviour
     private void GameStart()
     {
         Debug.Log("start");
+        battling = true;
         battleBGM.Play();
         PlayerHP.SetStarted(true);
         EnemyHP.SetStarted(true);
@@ -33,6 +37,7 @@ public class GameController : MonoBehaviour
     public void GameFinished(bool playerWin)
     {
         Debug.Log("finish");
+        battling = false;
         battleBGM.Stop();
         PlayerHP.SetStarted(false);
         EnemyHP.SetStarted(false);
