@@ -173,7 +173,9 @@ public class Attack : MonoBehaviour
     {
         hitSound.Play();
         hitImage.SetActive(true);
+        hitImage.transform.SetParent(null);
         yield return new WaitForSeconds(hitEffectTime);
+        hitImage.transform.SetParent(this.gameObject.transform);
         hitImage.SetActive(false);
         yield return null;
     }

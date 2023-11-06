@@ -16,6 +16,9 @@ public class PlayerControl : MonoBehaviour
     private EnemyStrategy Brain;
     [SerializeField] float WoundedPenalty = 1.0f;
 
+    // Flash Effect
+    [SerializeField] private Flash flashEffect;
+
     [SerializeField] private float LbodyOffset, RbodyOffset, AttackPointOffset;
     public float Lborder() => LbodyOffset + MoveManager.GetPos();
     public float Rborder() => RbodyOffset + MoveManager.GetPos();
@@ -136,6 +139,7 @@ public class PlayerControl : MonoBehaviour
             if (HpManager != null)
                 HpManager.DecreaseHP(AttackManager.Vulnerable());
             // Oh no, I am hit, all my current activities are cancelled
+            flashEffect.StartFlash();
             DefendManager.Cancel();
             AttackManager.Cancel();
             ResetCancelCnt();
