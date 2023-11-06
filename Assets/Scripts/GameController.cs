@@ -15,6 +15,8 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private GameObject WinString;
     [SerializeField] private GameObject LoseString;
+    [SerializeField] private AudioSource WinSound;
+    [SerializeField] private AudioSource LoseSound;
 
     public bool battling;
     public bool gameFinished;
@@ -47,11 +49,13 @@ public class GameController : MonoBehaviour
         if (!playerWin)
         {
             Debug.Log("player win");
+            WinSound.Play();
             WinString.SetActive(true);
         }
         else
         {
             Debug.Log("player lose");
+            LoseSound.Play();
             LoseString.SetActive(true);
         }
 
