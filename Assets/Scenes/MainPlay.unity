@@ -696,6 +696,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 476899161707766461, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
+      propertyPath: gameController
+      value: 
+      objectReference: {fileID: 416242212}
+    - target: {fileID: 476899161707766461, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
       propertyPath: AttackPointOffset
       value: -3
       objectReference: {fileID: 0}
@@ -977,6 +981,7 @@ MonoBehaviour:
   WinString: {fileID: 2120081348}
   LoseString: {fileID: 456055355}
   battling: 0
+  gameFinished: 0
 --- !u!4 &416242213
 Transform:
   m_ObjectHideFlags: 0
@@ -1470,7 +1475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &603831550
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1687,7 +1692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 817814895}
-  GameController: {fileID: 416242212}
+  gameController: {fileID: 0}
 --- !u!1 &961495962 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2313800430383049033, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
@@ -2546,6 +2551,10 @@ PrefabInstance:
       propertyPath: flashEffect
       value: 
       objectReference: {fileID: 961495966}
+    - target: {fileID: 2313800429879619278, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
+      propertyPath: gameController
+      value: 
+      objectReference: {fileID: 416242212}
     - target: {fileID: 2313800429879619278, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
       propertyPath: AttackPointOffset
       value: 2

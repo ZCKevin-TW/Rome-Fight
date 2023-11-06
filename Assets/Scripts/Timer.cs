@@ -9,7 +9,7 @@ public class Timer : MonoBehaviour
     private float timeRemaining = 60;
     // private bool timerIsRunning = false;
     [SerializeField] private TMP_Text timeText;
-    [SerializeField] private GameController GameController;
+    [SerializeField] private GameController gameController;
     private void Start()
     {
         // Starts the timer automatically
@@ -17,7 +17,7 @@ public class Timer : MonoBehaviour
     }
     void Update()
     {
-        if (GameController.battling)
+        if (gameController.battling)
         {
             if (timeRemaining > 0)
             {
@@ -29,7 +29,7 @@ public class Timer : MonoBehaviour
                 Debug.Log("Time has run out!");
                 timeRemaining = 0;
                 // timerIsRunning = false;
-                GameController.GameFinished(true);
+                gameController.GameFinished(true);
             }
         }
     }

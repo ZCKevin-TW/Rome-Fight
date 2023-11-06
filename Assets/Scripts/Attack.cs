@@ -107,7 +107,6 @@ public class Attack : MonoBehaviour
             Player.BanMovement(BlockedPenalty);
             //Player.BanMovementOut();
             yield return new WaitForSeconds(BlockedPenalty);
-            // TODO(ZoeTsou): Fixed this bug... the sound won't stop
             dizzySound.Stop();
             Anim.SetBool("InDizzy", false);
         }

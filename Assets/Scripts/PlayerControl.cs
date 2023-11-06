@@ -15,6 +15,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private HpBar HpManager;
     private EnemyStrategy Brain;
     [SerializeField] float WoundedPenalty = 1.0f;
+    [SerializeField] private GameController gameController;
 
     // Flash Effect
     [SerializeField] private Flash flashEffect;
@@ -61,11 +62,9 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Means I pressed Attack button
         if (FromUser)
         {
             if (Input.GetButton("Fire1")) pressAttack();
-        // Means I pressed Defend button
             if (Input.GetButton("Fire2")) pressDefend(); 
             pressMove(Input.GetAxisRaw("Horizontal"));
         }
@@ -98,7 +97,7 @@ public class PlayerControl : MonoBehaviour
     }
     public void pressAttack()
     {
-        if (Frozen) return;
+        if (Frozen || !gameController.battling) return;
         if (DefendManager.IsActive()) 
         {
             if (CancelCnt == 0)
@@ -114,7 +113,7 @@ public class PlayerControl : MonoBehaviour
     }
     public void pressDefend()
     {
-        if (Frozen) return;
+        if (Frozen || !gameController.battling) return;
         if (AttackManager.IsActive())
         {
             if (CancelCnt == 0)
@@ -148,10 +147,10 @@ public class PlayerControl : MonoBehaviour
         }
         return false;
     } 
-    private IEnumerator _BanMovement(float last_time)
+    private IEnumerator _BanMovement(float duration)
     {
         Frozen = true;
-        yield return new WaitForSeconds(last_time);
+        yield return new WaitForSeconds(duration);
         Frozen = false;
 
     } 
