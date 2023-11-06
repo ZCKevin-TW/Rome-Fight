@@ -43,7 +43,7 @@ public class Attack : MonoBehaviour
     }
     public bool Vulnerable()
     {
-        return CurrentStatus == Status.PostStage;
+        return CurrentStatus == Status.PostStage || CurrentStatus == Status.BlockedStage;
     }
     public bool IsActive()
     {
