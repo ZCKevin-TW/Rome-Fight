@@ -21,6 +21,10 @@ public class Attack : MonoBehaviour
     [SerializeField] private AudioSource hitSound;
     [SerializeField] private AudioSource dizzySound;
 
+    // Visual Effects
+    [SerializeField] private GameObject hitImage;
+    [SerializeField] private float hitEffectTime = .2f;
+
     public enum Status { 
         IdleStage,
         PreStage,
@@ -158,10 +162,21 @@ public class Attack : MonoBehaviour
             if (Player.Enemy.IsHit())
             {
                 // Attack success
-                hitSound.Play();
+                StartCoroutine(HitSucceedEffect());
             }
             else
                 LastAttackblocked = true;
         }
+    }
+
+    private IEnumerator HitSucceedEffect()
+    {
+        hitSound.Play();
+        hitImage.SetActive(true);
+        hitImage.transform.SetParent(null);
+        yield return new WaitForSeconds(hitEffectTime);
+        hitImage.transform.SetParent(this.gameObject.transform);
+        hitImage.SetActive(false);
+        yield return null;
     }
 }
