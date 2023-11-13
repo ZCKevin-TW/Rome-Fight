@@ -67,6 +67,8 @@ public class PlayerControl : MonoBehaviour
             if (Input.GetButton("Fire1")) pressAttack();
             if (Input.GetButton("Fire2")) pressDefend(); 
             pressMove(Input.GetAxisRaw("Horizontal"));
+            if (Input.GetButton("Dash"))
+                MoveManager.Dash(Input.GetAxisRaw("Horizontal"));
         }
         MoveManager.SetFreeze(!AttackManager.Moveable() || Frozen);
     }
@@ -141,6 +143,7 @@ public class PlayerControl : MonoBehaviour
             flashEffect.StartFlash();
             DefendManager.Cancel();
             AttackManager.Cancel();
+            MoveManager.Cancel();
             ResetCancelCnt();
             BanMovement(WoundedPenalty);
             return true;

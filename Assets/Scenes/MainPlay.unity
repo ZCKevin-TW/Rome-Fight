@@ -627,6 +627,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 476899161707766338, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
+      propertyPath: DashCDTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 476899161707766339, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
       propertyPath: PreTime
       value: 0.3
