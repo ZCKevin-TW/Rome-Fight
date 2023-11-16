@@ -77,40 +77,48 @@ public class Attack : MonoBehaviour
         yield return new WaitForSeconds(PreTime);
     }
     // return true
+
+    IEnumerator BlockedAttack()
+    {
+        Anim.SetBool("InAttack", false); 
+        SetStatus(Status.BlockedStage);
+        Anim.SetBool("InDizzy", true);
+        dizzySound.Play();
+        Debug.Log("Being Dizzy for " + (BlockedPenalty));
+        Player.BanMovement(BlockedPenalty);
+        //Player.BanMovementOut();
+        yield return new WaitForSeconds(BlockedPenalty);
+        dizzySound.Stop();
+        Anim.SetBool("InDizzy", false); 
+    }
+    // In Attack flow
+    // start animation
+    // trigger attack at time {Intime/2}
+    // If blocked, switch to Blocked effect
+    // else normal
     IEnumerator InAttack()
     {
         Anim.SetBool("PreAttack", false); 
         Anim.SetBool("InAttack", true);
         swingSound.Play();
+        yield return new WaitForSeconds(InTime/2);
         AttackEvent();
-        yield return new WaitForSeconds(InTime);
+        if (LastAttackblocked)
+            yield return BlockedAttack();
+        else
+            yield return new WaitForSeconds(InTime/2); 
     }
     IEnumerator PostAttack()
     {
+        if (LastAttackblocked)
+            yield break;
+
         Anim.SetBool("InAttack", false); 
-        // Debug.Log("Now sete the status to post stage");
-        if (!LastAttackblocked)
-        {
-            SetStatus(Status.PostStage);
-            Anim.SetBool("PostAttack", true);
-            Debug.Log("Cannot attack for " + PostTime + " sec(s)");
-            yield return new WaitForSeconds(PostTime);
-            Anim.SetBool("PostAttack", false);
-        }
-        else
-        {
-            SetStatus(Status.BlockedStage);
-        //    Debug.Log("I am blocked, now wait longer");
-            Anim.SetBool("InDizzy", true);
-            dizzySound.Play();
-            Debug.Log("Being Dizzy for " + (BlockedPenalty));
-            Player.BanMovement(BlockedPenalty);
-            //Player.BanMovementOut();
-            yield return new WaitForSeconds(BlockedPenalty);
-            dizzySound.Stop();
-            Anim.SetBool("InDizzy", false);
-        }
-        yield return null; 
+        Anim.SetBool("PostAttack", true);
+        SetStatus(Status.PostStage);
+        Debug.Log("Cannot attack for " + PostTime + " sec(s)");
+        yield return new WaitForSeconds(PostTime);
+        Anim.SetBool("PostAttack", false); 
     }
     IEnumerator SetIdle()
     {
