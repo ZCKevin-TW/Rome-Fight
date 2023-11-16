@@ -36,7 +36,7 @@ public class EnemyStrategy : MonoBehaviour
 // Debug.Log("Enemy strategy update");
         if (PlayerAPI.HitWall()) dx *= -1;
         PlayerAPI.pressMove(dx);
-        if (!PlayerAPI.Enemy.InsideHitBox(PlayerAPI.GetAttackPoint()))
+        if (!PlayerAPI.Enemy.InsideHitBox(PlayerAPI.GetAttackPoint(Attack.AttackType.Normal)))
             InVisionTime = 0;
         else
             ++InVisionTime;
@@ -48,7 +48,7 @@ public class EnemyStrategy : MonoBehaviour
             case Mode.Idle:
                 break;
             case Mode.Attack:
-                PlayerAPI.pressMove(PlayerAPI.AttackEnemyDirection());
+                PlayerAPI.pressMove(PlayerAPI.AttackEnemyDirection(Attack.AttackType.Normal));
                 break;
             case Mode.Escape:
                 PlayerAPI.pressMove(PlayerAPI.EscapeEnemyDirection());
@@ -82,7 +82,7 @@ public class EnemyStrategy : MonoBehaviour
             Debug.Log("Close so dangerous");
             if (Random.Range(0, 2) == 1) PlayerAPI.pressDefend();
         }
-        else if (PlayerAPI.InsideHitBox(PlayerAPI.Enemy.GetAttackPoint()))
+        else if (PlayerAPI.InsideHitBox(PlayerAPI.Enemy.GetAttackPoint(Attack.AttackType.Normal)))
         {
             if (Random.Range(0f, 1f) < OutterBlockProbability) PlayerAPI.pressDefend();
         } 

@@ -24,25 +24,27 @@ public class PlayerControl : MonoBehaviour
     public float Lborder() => LbodyOffset + MoveManager.GetPos();
     public float Rborder() => RbodyOffset + MoveManager.GetPos();
     public float CenterPos() => (Lborder() + Rborder()) / 2;
-    public float GetAttackPoint() => AttackPointOffset + MoveManager.GetPos();
+
+    // TODO: return attack point according to type
+    public float GetAttackPoint(Attack.AttackType Type) => AttackPointOffset + MoveManager.GetPos();
     public bool InsideHitBox(float x) => Lborder() <= x && x <= Rborder();
 
     // only -1, 0, 1 will be returned
-    public float AttackEnemyDirection()
+    public float AttackEnemyDirection(Attack.AttackType Type)
     {
         const float eps = 1e-1f;
-        if (Mathf.Abs(GetAttackPoint() - Enemy.CenterPos()) <= eps)
+        if (Mathf.Abs(GetAttackPoint(Type) - Enemy.CenterPos()) <= eps)
             return 0;
-        return GetAttackPoint() < Enemy.CenterPos() ? 1 : -1;
+        return GetAttackPoint(Type) < Enemy.CenterPos() ? 1 : -1;
     }
     // only -1, 1 will be returned
     public float EscapeEnemyDirection()
     {
-        return CenterPos() < Enemy.GetAttackPoint() ? -1 : 1;
+        return CenterPos() < Enemy.GetAttackPoint(Attack.AttackType.Normal) ? -1 : 1;
     }
     public float DangerDistance()
     {
-        return Mathf.Abs(CenterPos() - Enemy.GetAttackPoint());
+        return Mathf.Abs(CenterPos() - Enemy.GetAttackPoint(Attack.AttackType.Normal));
     }
 
     void Awake()
@@ -133,9 +135,9 @@ public class PlayerControl : MonoBehaviour
     // The enemy hit me, return whether I am hit.
 
 
-    public bool IsHit()
+    public bool IsHit(bool ArmorPenetration)
     {
-        if (!DefendManager.IsBlocking())
+        if (!DefendManager.IsBlocking() || ArmorPenetration)
         {
             if (HpManager != null)
                 HpManager.DecreaseHP(AttackManager.Vulnerable());

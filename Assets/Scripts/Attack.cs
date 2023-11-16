@@ -32,6 +32,11 @@ public class Attack : MonoBehaviour
         BlockedStage
         // CooldownStage
     };
+    public enum AttackType
+    {
+        Normal,
+        Side
+    };
     public Status CurrentStatus; 
     void SetStatus(Status status)
     {
@@ -69,7 +74,7 @@ public class Attack : MonoBehaviour
         Anim.SetBool("InDefense", false);
         Anim.SetBool("InDizzy", false);
     }
-    IEnumerator PreAttack()
+    IEnumerator PreAttack(AttackType Type)
     {
         Player.NoteAttack();
         Anim.SetBool("PreAttack", true);
@@ -96,19 +101,19 @@ public class Attack : MonoBehaviour
     // trigger attack at time {Intime/2}
     // If blocked, switch to Blocked effect
     // else normal
-    IEnumerator InAttack()
+    IEnumerator InAttack(AttackType Type)
     {
         Anim.SetBool("PreAttack", false); 
         Anim.SetBool("InAttack", true);
         swingSound.Play();
         yield return new WaitForSeconds(InTime/2);
-        AttackEvent();
-        if (LastAttackblocked)
+        AttackEvent(Type);
+        if (LastAttackblocked && Type == AttackType.Normal)
             yield return BlockedAttack();
         else
             yield return new WaitForSeconds(InTime/2); 
     }
-    IEnumerator PostAttack()
+    IEnumerator PostAttack(AttackType Type)
     {
         if (LastAttackblocked)
             yield break;
@@ -128,11 +133,11 @@ public class Attack : MonoBehaviour
         lastRoutine = null;
         yield return null;
     }
-    IEnumerator Trigger()
+    IEnumerator Trigger(AttackType Type)
     {
-        yield return PreAttack();
-        yield return InAttack();
-        yield return PostAttack();
+        yield return PreAttack(Type);
+        yield return InAttack(Type);
+        yield return PostAttack(Type);
         yield return SetIdle();
     }
     // Cancel is a total reset, should reset everything;
@@ -154,19 +159,19 @@ public class Attack : MonoBehaviour
     {
         if (!IsActive())
         {
-            lastRoutine = StartCoroutine(Trigger());
+            lastRoutine = StartCoroutine(Trigger(AttackType.Normal));
         }
     }
     // If the attack was blocked, return true;
     // else return false;
-    public void AttackEvent()
+    public void AttackEvent(AttackType Type)
     {
-        Debug.Log("Player hit at " + Player.GetAttackPoint());
+        Debug.Log("Player hit at " + Player.GetAttackPoint(Type));
         Debug.Log("Enemy hitbox position between " + Player.Enemy.Lborder() + ", " + Player.Enemy.Rborder());
         LastAttackblocked = false;
-        if (Player.Enemy.InsideHitBox(Player.GetAttackPoint()))
+        if (Player.Enemy.InsideHitBox(Player.GetAttackPoint(Type)))
         {
-            if (Player.Enemy.IsHit())
+            if (Player.Enemy.IsHit(Type == AttackType.Side))
             {
                 // Attack success
                 StartCoroutine(HitSucceedEffect());
