@@ -9,7 +9,7 @@ public class Attack : MonoBehaviour
     // Start is called before the first frame update
     private PlayerControl Player;
     [SerializeField] private float PreTime = .3f;
-    [SerializeField] private float InTime = .1f;
+    [SerializeField] private float InTime = .125f;
     [SerializeField] private float PostTime = .5f;
     [SerializeField] private float BlockedPenalty = .5f;
     private Coroutine lastRoutine = null;
