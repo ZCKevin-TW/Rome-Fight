@@ -715,6 +715,10 @@ PrefabInstance:
       propertyPath: AttackPointOffset
       value: -3
       objectReference: {fileID: 0}
+    - target: {fileID: 4660277662391861659, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 66e8227e26e63ee489cced82f298dfc6, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
 --- !u!1 &168578230
@@ -1025,7 +1029,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0b1067138631f92489684317acfe1462, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.826
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1121,7 +1125,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 810ab488917eec445ad5f547eccfa59f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.838
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1217,7 +1221,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8d89daea320b2394a9c2fcf72ed53654, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.911
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1313,7 +1317,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: cefcc3ff5ce1b65449f5734d3efa5bc3, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.915
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2811,5 +2815,9 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5836112762849218803, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 66e8227e26e63ee489cced82f298dfc6, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
