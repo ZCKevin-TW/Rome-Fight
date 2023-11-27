@@ -25,7 +25,7 @@ public class EnemyStrategy : MonoBehaviour
     void Start()
     {
         PlayerAPI = GetComponent<PlayerControl>();
-        Debug.Log("awaking");
+    //    Debug.Log("awaking");
         InVisionTime = 0;
         CurrentMode = Mode.Idle;
         StartCoroutine("RandomMoving");

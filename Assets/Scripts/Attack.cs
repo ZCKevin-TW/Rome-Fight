@@ -70,8 +70,8 @@ public class Attack : MonoBehaviour
     {
         if (Type == AttackType.Normal) anim.SetTrigger("normalAttack");
         else if (Type == AttackType.Side) anim.SetTrigger("sideAttack");
-        Player.NoteAttack();
         SetStatus(Status.PreStage);
+        Player.NoteAttack();
         yield return new WaitForSeconds(PreTime);
     }
     // return true
@@ -113,12 +113,12 @@ public class Attack : MonoBehaviour
             yield break;
 
         SetStatus(Status.PostStage);
-        Debug.Log("Cannot attack for " + PostTime + " sec(s)");
+        // Debug.Log("Cannot attack for " + PostTime + " sec(s)");
         yield return new WaitForSeconds(PostTime);
     }
     IEnumerator SetIdle()
     {
-        Debug.Log("Go back to idle");
+        // Debug.Log("Go back to idle");
         SetStatus(Status.IdleStage);
         anim.SetTrigger("idle");
         Player.ResetCancelCnt();
@@ -138,7 +138,7 @@ public class Attack : MonoBehaviour
     {
         if (IsActive())
         { 
-            Debug.Log("Cancel current movement");
+            // Debug.Log("Cancel current movement");
             dizzySound.Stop();
             StopCoroutine(lastRoutine);
             lastRoutine = null;
@@ -146,12 +146,10 @@ public class Attack : MonoBehaviour
         }
     }
     // Update is called once per frame
-    public void Fire()
+    public void Fire(AttackType type)
     {
         if (!IsActive())
-        {
-            lastRoutine = StartCoroutine(Trigger(AttackType.Normal));
-        }
+            lastRoutine = StartCoroutine(Trigger(type));
     }
     // If the attack was blocked, return true;
     // else return false;

@@ -2734,6 +2734,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2313800429879619250, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
+      propertyPath: speed
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313800429879619250, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
       propertyPath: DashCDTime
       value: 1
       objectReference: {fileID: 0}
@@ -2793,6 +2797,10 @@ PrefabInstance:
       propertyPath: Enemy
       value: 
       objectReference: {fileID: 1470879889}
+    - target: {fileID: 2313800429879619278, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
+      propertyPath: Frozen
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2313800429879619278, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
       propertyPath: FromUser
       value: 0

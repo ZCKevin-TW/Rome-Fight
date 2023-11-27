@@ -1,4 +1,5 @@
-using System.Collections;
+using System.Collections; 
+using UnityEngine.Assertions;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ public class PlayerControl : MonoBehaviour
     private Attack AttackManager;
     private Defend DefendManager;
     private int CancelCnt;
-    private bool Frozen;
+    public bool Frozen;
     [SerializeField] private bool FromUser = true;
     [SerializeField] private HpBar HpManager;
     private EnemyStrategy Brain;
@@ -21,13 +22,21 @@ public class PlayerControl : MonoBehaviour
     // Flash Effect
     [SerializeField] private Flash flashEffect;
 
-    [SerializeField] private float LbodyOffset, RbodyOffset, AttackPointOffset;
+    [SerializeField] private float LbodyOffset, RbodyOffset
+        , NormalAttackPointOffset, SideAttackPointOffset;
     public float Lborder() => LbodyOffset + MoveManager.GetPos();
     public float Rborder() => RbodyOffset + MoveManager.GetPos();
     public float CenterPos() => (Lborder() + Rborder()) / 2;
 
     // TODO: return attack point according to type
-    public float GetAttackPoint(Attack.AttackType Type) => AttackPointOffset + MoveManager.GetPos();
+    public float GetAttackPoint(Attack.AttackType Type) {
+        if (Type == Attack.AttackType.Normal)
+            return NormalAttackPointOffset + MoveManager.GetPos();
+        if (Type == Attack.AttackType.Side)
+            return SideAttackPointOffset   + MoveManager.GetPos(); 
+        Assert.IsTrue(false);
+        return -1;
+    }
     public bool InsideHitBox(float x) => Lborder() <= x && x <= Rborder();
 
     // only -1, 0, 1 will be returned
@@ -103,18 +112,18 @@ public class PlayerControl : MonoBehaviour
     public void pressAttack(Attack.AttackType type)
     {
         if (Frozen || !gameController.battling) return;
-        Debug.Log("Attack type " + type + " is triggered");
+        // Debug.Log("Attack type " + type + " is triggered");
         if (DefendManager.IsActive() && type == Attack.AttackType.Normal) 
         {
             if (CancelCnt == 0)
             {
                 DefendManager.Cancel();
                 ++CancelCnt;
-                AttackManager.Fire();
+                AttackManager.Fire(type);
             }
         } else
         {
-            AttackManager.Fire();
+            AttackManager.Fire(type);
         } 
     }
     public void pressDefend()
