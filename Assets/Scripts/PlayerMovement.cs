@@ -17,7 +17,8 @@ public class PlayerMovement : MonoBehaviour
     private bool InDash = false;
     private bool Frozen = false;
     private int LastDirection = 0;
-    // Start is called before the first frame update
+
+    [SerializeField] private AudioSource dashSound;
     void Awake()
     { 
         rd = GetComponent<Rigidbody2D>();
@@ -81,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
             // Right Dash
             // TODO: Right Dash Animation
         }
+        dashSound.Play();
         rd.position = new Vector2(rd.position.x + dx * dashDistance, rd.position.y);
         ClampPosition();
         if (dx != 0)
