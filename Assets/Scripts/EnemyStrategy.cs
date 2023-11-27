@@ -41,7 +41,7 @@ public class EnemyStrategy : MonoBehaviour
         else
             ++InVisionTime;
         if (InVisionTime > 20 && CurrentMode == Mode.Attack)
-            PlayerAPI.pressAttack();
+            PlayerAPI.pressAttack(Random.Range(0, 2) == 1 ? Attack.AttackType.Normal : Attack.AttackType.Side);
 
         switch (CurrentMode)
         {

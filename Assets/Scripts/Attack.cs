@@ -44,7 +44,8 @@ public class Attack : MonoBehaviour
     }
     public bool Moveable()
     {
-        return !InPre() && CurrentStatus != Status.BlockedStage;
+        return !IsActive();
+       // return !InPre() && CurrentStatus != Status.BlockedStage;
     }
     public bool Vulnerable()
     {

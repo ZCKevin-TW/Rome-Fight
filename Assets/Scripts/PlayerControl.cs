@@ -66,7 +66,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (FromUser)
         {
-            if (Input.GetButton("Fire1")) pressAttack();
+            if (Input.GetButton("Fire1")) pressAttack(Attack.AttackType.Normal);
             if (Input.GetButton("Fire2")) pressDefend(); 
             pressMove(Input.GetAxisRaw("Horizontal"));
             if (Input.GetButton("Dash"))
@@ -99,10 +99,11 @@ public class PlayerControl : MonoBehaviour
         dx = Mathf.Clamp(dx, -1f, 1f);
         MoveManager.SetInput(dx); 
     }
-    public void pressAttack()
+    public void pressAttack(Attack.AttackType type)
     {
         if (Frozen || !gameController.battling) return;
-        if (DefendManager.IsActive()) 
+        Debug.Log("Attack type " + type + "Is triggered");
+        if (DefendManager.IsActive() && type == Attack.AttackType.Normal) 
         {
             if (CancelCnt == 0)
             {
