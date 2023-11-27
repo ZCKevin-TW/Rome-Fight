@@ -13,7 +13,6 @@ public class Attack : MonoBehaviour
     [SerializeField] private float PostTime = .5f;
     [SerializeField] private float BlockedPenalty = .5f;
     private Coroutine lastRoutine = null;
-    private Animator Anim;
     private bool LastAttackblocked;
 
     // Sound Effects
@@ -24,6 +23,7 @@ public class Attack : MonoBehaviour
     // Visual Effects
     [SerializeField] private GameObject hitImage;
     [SerializeField] private float hitEffectTime = .2f;
+    [SerializeField] private Animator anim;
 
     public enum Status { 
         IdleStage,
@@ -63,22 +63,14 @@ public class Attack : MonoBehaviour
     void Start()
     {
         Player = GetComponent<PlayerControl>();
-        SetStatus(Status.IdleStage); 
-        Anim = GetComponentInChildren<Animator>();
+        SetStatus(Status.IdleStage);
     }
 
-    private void ResetAnim()
-    {
-        Anim.SetBool("PreAttack", false);
-        Anim.SetBool("InAttack", false);
-        Anim.SetBool("PostAttack", false);
-        Anim.SetBool("InDefense", false);
-        Anim.SetBool("InDizzy", false);
-    }
     IEnumerator PreAttack(AttackType Type)
     {
+        if (Type == AttackType.Normal) anim.SetTrigger("normalAttack");
+        else if (Type == AttackType.Side) anim.SetTrigger("sideAttack");
         Player.NoteAttack();
-        Anim.SetBool("PreAttack", true);
         SetStatus(Status.PreStage);
         yield return new WaitForSeconds(PreTime);
     }
@@ -86,50 +78,49 @@ public class Attack : MonoBehaviour
 
     IEnumerator BlockedAttack()
     {
-        Anim.SetBool("InAttack", false); 
         SetStatus(Status.BlockedStage);
-        Anim.SetBool("InDizzy", true);
         dizzySound.Play();
+        anim.SetTrigger("dizzy");
+        anim.SetBool("inAttack", false);
         Debug.Log("Being Dizzy for " + (BlockedPenalty));
-        Player.BanMovement(BlockedPenalty);
+        Player.BanMovement(BlockedPenalty); // set animation idle when become movable
         //Player.BanMovementOut();
         yield return new WaitForSeconds(BlockedPenalty);
         dizzySound.Stop();
-        Anim.SetBool("InDizzy", false); 
+        // anim.SetTrigger("idle");
     }
     // In Attack flow
-    // start animation
     // trigger attack at time {Intime/2}
     // If blocked, switch to Blocked effect
     // else normal
     IEnumerator InAttack(AttackType Type)
     {
-        Anim.SetBool("PreAttack", false); 
-        Anim.SetBool("InAttack", true);
         swingSound.Play();
+        anim.SetBool("inAttack", true);
         yield return new WaitForSeconds(InTime/2);
         AttackEvent(Type);
         if (LastAttackblocked && Type == AttackType.Normal)
             yield return BlockedAttack();
         else
-            yield return new WaitForSeconds(InTime/2); 
+        {
+            yield return new WaitForSeconds(InTime / 2);
+            anim.SetBool("inAttack", false);
+        }
     }
     IEnumerator PostAttack(AttackType Type)
     {
         if (LastAttackblocked)
             yield break;
 
-        Anim.SetBool("InAttack", false); 
-        Anim.SetBool("PostAttack", true);
         SetStatus(Status.PostStage);
         Debug.Log("Cannot attack for " + PostTime + " sec(s)");
         yield return new WaitForSeconds(PostTime);
-        Anim.SetBool("PostAttack", false); 
     }
     IEnumerator SetIdle()
     {
         Debug.Log("Go back to idle");
         SetStatus(Status.IdleStage);
+        anim.SetTrigger("idle");
         Player.ResetCancelCnt();
         lastRoutine = null;
         yield return null;
@@ -147,12 +138,11 @@ public class Attack : MonoBehaviour
     {
         if (IsActive())
         { 
-            Debug.Log("Return to idle");
+            Debug.Log("Cancel current movement");
             dizzySound.Stop();
             StopCoroutine(lastRoutine);
-            ResetAnim();
             lastRoutine = null;
-            SetStatus(Status.IdleStage); 
+            SetStatus(Status.IdleStage);
         }
     }
     // Update is called once per frame

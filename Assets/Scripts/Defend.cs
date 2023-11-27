@@ -9,7 +9,8 @@ public class Defend : MonoBehaviour
     [SerializeField] private float DefendTime = .5f;
     [SerializeField] private float PostTime = .5f;
     private PlayerControl Player;
-    private Animator Anim;
+    [SerializeField] private Animator anim;
+
     public enum Status { 
         IdleStage,
         PreStage,
@@ -26,7 +27,6 @@ public class Defend : MonoBehaviour
     {
         SetStatus(Status.IdleStage);
         Player = GetComponent<PlayerControl>();
-        Anim = GetComponentInChildren<Animator>();
     }
     public bool IsActive()
     {
@@ -38,17 +38,9 @@ public class Defend : MonoBehaviour
         return CurrentStatus == Status.DefendingStage;
     }
 
-    private void ResetAnim()
-    {
-        Anim.SetBool("PreAttack", false);
-        Anim.SetBool("InAttack", false);
-        Anim.SetBool("PostAttack", false);
-        Anim.SetBool("InDefense", false);
-        Anim.SetBool("InDizzy", false);
-    }
     IEnumerator Trigger()
     {
-        Anim.SetBool("InDefense", true);
+        anim.SetTrigger("defense");
         SetStatus(Status.PreStage);
         yield return new WaitForSeconds(PreTime);
         SetStatus(Status.DefendingStage);
@@ -56,10 +48,10 @@ public class Defend : MonoBehaviour
         yield return new WaitForSeconds(DefendTime);
         SetStatus(Status.PostStage);
         Debug.Log("Blocking end");
-        Anim.SetBool("InDefense", false);
         yield return new WaitForSeconds(PostTime);
         SetStatus(Status.IdleStage);
         Player.ResetCancelCnt();
+        anim.SetTrigger("idle");
         yield return null; 
     }
     public void Cancel()
@@ -69,15 +61,14 @@ public class Defend : MonoBehaviour
             StopCoroutine("Trigger");
             SetStatus(Status.IdleStage);
             Debug.Log("Block is cancelled");
-            ResetAnim();
         }
     }
-    // Update is called once per frame
+
     public void Block()
     {
         if (!IsActive())
+        {
             StartCoroutine("Trigger");
+        }
     }
-
-    // Update is called once per frame
 }

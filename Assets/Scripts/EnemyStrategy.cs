@@ -19,7 +19,9 @@ public class EnemyStrategy : MonoBehaviour
         Attack,
         Escape
     };
+
     private Mode CurrentMode;
+
     void Start()
     {
         PlayerAPI = GetComponent<PlayerControl>();

@@ -16,6 +16,7 @@ public class PlayerControl : MonoBehaviour
     private EnemyStrategy Brain;
     [SerializeField] float WoundedPenalty = 1.0f;
     [SerializeField] private GameController gameController;
+    [SerializeField] private Animator anim;
 
     // Flash Effect
     [SerializeField] private Flash flashEffect;
@@ -102,7 +103,7 @@ public class PlayerControl : MonoBehaviour
     public void pressAttack(Attack.AttackType type)
     {
         if (Frozen || !gameController.battling) return;
-        Debug.Log("Attack type " + type + "Is triggered");
+        Debug.Log("Attack type " + type + " is triggered");
         if (DefendManager.IsActive() && type == Attack.AttackType.Normal) 
         {
             if (CancelCnt == 0)
@@ -148,17 +149,19 @@ public class PlayerControl : MonoBehaviour
             AttackManager.Cancel();
             MoveManager.Cancel();
             ResetCancelCnt();
+            anim.SetTrigger("hit");
             BanMovement(WoundedPenalty);
             return true;
         }
         return false;
     } 
+
     private IEnumerator _BanMovement(float duration)
     {
         Frozen = true;
         yield return new WaitForSeconds(duration);
         Frozen = false;
-
+        anim.SetTrigger("idle");
     } 
     public void BanMovement(float last_time)
     {
