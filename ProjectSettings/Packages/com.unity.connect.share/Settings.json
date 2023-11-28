@@ -21,7 +21,7 @@
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "buildOutputDirList",
-                "value": "{\"m_Value\":\"D:/Rome-Fight/Builds;D:/temp;D:/temp/gametest;D:/temp/no;C:/Users/kevin/Documents/Rome-Fight/WebGL Builds;;;;;\"}"
+                "value": "{\"m_Value\":\"C:/Users/ckevi/Documents/Rome-Fight/WebGL Builds;D:/Rome-Fight/Builds;D:/temp;D:/temp/gametest;D:/temp/no;C:/Users/kevin/Documents/Rome-Fight/WebGL Builds;;;;\"}"
             }
         ]
     }
