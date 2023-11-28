@@ -7,10 +7,11 @@ public class EnemyStrategy : MonoBehaviour
     // Start is called before the first frame update
     private PlayerControl PlayerAPI;
     [SerializeField] private float MaxPatterTime = .8f;
-    [SerializeField] private float ReactTime = .1f;
+    private float ReactTime() => NextGaussian(.5f, .2f, 0f, 2f);
     [SerializeField] private float CloseDis = .1f;
     [SerializeField] private float StrategySwitchTime = 5f;
-    [SerializeField] private float OutterBlockProbability = .8f;
+//    [SerializeField] private float OutterBlockProbability = .8f;
+    [SerializeField] private float SideAttackProb = .25f;
     private float dx;
     private int InVisionTime;
     enum Mode
@@ -35,6 +36,10 @@ public class EnemyStrategy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // PlayerAPI.BanMovement(1000f, () => { });
+//        PlayerAPI.pressAttack(Attack.AttackType.Side);
+//        return;
+
 // Debug.Log("Enemy strategy update");
         if (PlayerAPI.HitWall()) dx *= -1;
         PlayerAPI.pressMove(dx);
@@ -43,7 +48,7 @@ public class EnemyStrategy : MonoBehaviour
         else
             ++InVisionTime;
         if (InVisionTime > 20 && CurrentMode == Mode.Attack)
-            PlayerAPI.pressAttack(Random.Range(0, 2) == 1 ? Attack.AttackType.Normal : Attack.AttackType.Side);
+            PlayerAPI.pressAttack(Random.Range(0f, 1f) > SideAttackProb ? Attack.AttackType.Normal : Attack.AttackType.Side);
 
         switch (CurrentMode)
         {
@@ -68,25 +73,45 @@ public class EnemyStrategy : MonoBehaviour
             }
             else
             {
-                Debug.Log("Now attacking");
                 CurrentMode = Mode.Attack;
             }
             float RemainTime = Random.Range(0f, StrategySwitchTime);
             yield return new WaitForSeconds(RemainTime); 
         } 
     }
+    public static float NextGaussian() {
+        float v1, v2, s;
+        do {
+            v1 = 2.0f * Random.Range(0f,1f) - 1.0f;
+            v2 = 2.0f * Random.Range(0f,1f) - 1.0f;
+            s = v1 * v1 + v2 * v2;
+        } while (s >= 1.0f || s == 0f);
+        s = Mathf.Sqrt((-2.0f * Mathf.Log(s)) / s); 
+        return v1 * s;
+    }
+    public static float NextGaussian(float mean, float standard_deviation)
+    {
+        return mean + NextGaussian() * standard_deviation;
+    }
+    public static float NextGaussian (float mean, float standard_deviation, float min, float max) {
+        float x;
+        do {
+            x = NextGaussian(mean, standard_deviation);
+        } while (x < min || x > max);
+        return x;
+    }
     IEnumerator _ReactToAttack()
     {
-        yield return new WaitForSeconds(ReactTime);
+        yield return new WaitForSeconds(ReactTime());
 
         if (PlayerAPI.DangerDistance() <= CloseDis)
         {
             Debug.Log("Close so dangerous");
-            if (Random.Range(0, 2) == 1) PlayerAPI.pressDefend();
+            PlayerAPI.pressDefend();
         }
         else if (PlayerAPI.InsideHitBox(PlayerAPI.Enemy.GetAttackPoint(Attack.AttackType.Normal)))
         {
-            if (Random.Range(0f, 1f) < OutterBlockProbability) PlayerAPI.pressDefend();
+            PlayerAPI.pressDefend();
         } 
         else
         { 

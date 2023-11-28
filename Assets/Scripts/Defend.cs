@@ -8,6 +8,7 @@ public class Defend : MonoBehaviour
     [SerializeField] private float PreTime = .1f;
     [SerializeField] private float DefendTime = .5f;
     [SerializeField] private float PostTime = .5f;
+    private Coroutine lastRoutine = null;
     private PlayerControl Player;
     [SerializeField] private Animator anim;
 
@@ -25,13 +26,19 @@ public class Defend : MonoBehaviour
     }
     void Start()
     {
+        lastRoutine = null;
         SetStatus(Status.IdleStage);
         Player = GetComponent<PlayerControl>();
     }
+    public bool Moveable()
+    {
+        return !IsActive();
+    }
     public bool IsActive()
     {
+        return lastRoutine != null;
     // Means I am in a life cycle of blocking, doesn't mean I am blocking!
-        return CurrentStatus != Status.IdleStage;
+        // return CurrentStatus != Status.IdleStage;
     }
     public bool IsBlocking()
     {
@@ -52,13 +59,15 @@ public class Defend : MonoBehaviour
         SetStatus(Status.IdleStage);
         Player.ResetCancelCnt();
         anim.SetTrigger("idle");
+        lastRoutine = null;
         yield return null; 
     }
     public void Cancel()
     {
         if (IsActive())
         {
-            StopCoroutine("Trigger");
+            StopCoroutine(lastRoutine);
+            lastRoutine = null;
             SetStatus(Status.IdleStage);
             Debug.Log("Block is cancelled");
         }
@@ -68,7 +77,8 @@ public class Defend : MonoBehaviour
     {
         if (!IsActive())
         {
-            StartCoroutine("Trigger");
+            Debug.Log("Defend is triggered");
+            lastRoutine = StartCoroutine(Trigger());
         }
     }
 }

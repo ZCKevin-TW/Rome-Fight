@@ -94,7 +94,7 @@ public class PlayerControl : MonoBehaviour
             if (Input.GetButton("Dash"))
                 MoveManager.Dash(Input.GetAxisRaw("Horizontal"));
         }
-        MoveManager.SetFreeze(!AttackManager.Moveable() || Frozen);
+        MoveManager.SetFreeze(!AttackManager.Moveable() || Frozen || !DefendManager.Moveable());
     }
     public void GetReadyForAttack()
     {
@@ -145,6 +145,7 @@ public class PlayerControl : MonoBehaviour
         {
             if (CancelCnt == 0)
             {
+                Debug.Log("From attack to defend transfer");
                 AttackManager.Cancel();
                 ++CancelCnt;
                 DefendManager.Block();
@@ -165,7 +166,7 @@ public class PlayerControl : MonoBehaviour
             if (HpManager != null)
                 HpManager.DecreaseHP(AttackManager.Vulnerable());
             // Oh no, I am hit, all my current activities are cancelled
-            flashEffect.StartFlash();
+            flashEffect.StartFlash(); 
             DefendManager.Cancel();
             AttackManager.Cancel();
             MoveManager.Cancel();
