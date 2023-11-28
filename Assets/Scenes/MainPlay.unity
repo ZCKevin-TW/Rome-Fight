@@ -632,6 +632,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 476899161707766338, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 1580130676}
+    - target: {fileID: 476899161707766338, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
       propertyPath: DashCDTime
       value: 1
       objectReference: {fileID: 0}
@@ -2733,6 +2737,10 @@ PrefabInstance:
       propertyPath: BlockedPenalty
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2313800429879619250, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 961495967}
     - target: {fileID: 2313800429879619250, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
       propertyPath: speed
       value: 5.5

@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     private int LastDirection = 0;
 
     [SerializeField] private AudioSource dashSound;
+    [SerializeField] private Animator anim;
+
     void Awake()
     { 
         rd = GetComponent<Rigidbody2D>();
@@ -76,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
         {
             // Left Dash
             // TODO: Left Dash Animation
+            anim.SetTrigger("dash");
         }
         if (dx == 1)
         {

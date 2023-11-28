@@ -169,8 +169,8 @@ public class PlayerControl : MonoBehaviour
     {
         Frozen = true;
         yield return new WaitForSeconds(duration);
+        yield return AttackManager.SetIdle();
         Frozen = false;
-        anim.SetTrigger("idle");
     } 
     public void BanMovement(float last_time)
     {

@@ -116,7 +116,7 @@ public class Attack : MonoBehaviour
         // Debug.Log("Cannot attack for " + PostTime + " sec(s)");
         yield return new WaitForSeconds(PostTime);
     }
-    IEnumerator SetIdle()
+    public IEnumerator SetIdle()
     {
         // Debug.Log("Go back to idle");
         SetStatus(Status.IdleStage);
