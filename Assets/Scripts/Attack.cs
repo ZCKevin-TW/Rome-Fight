@@ -42,6 +42,10 @@ public class Attack : MonoBehaviour
     {
         CurrentStatus = status;
     }
+    public bool IsDizzy()
+    {
+        return CurrentStatus == Status.BlockedStage;
+    }
     public bool Moveable()
     {
         return !IsActive();
@@ -83,7 +87,7 @@ public class Attack : MonoBehaviour
         anim.SetTrigger("dizzy");
         anim.SetBool("inAttack", false);
         Debug.Log("Being Dizzy for " + (BlockedPenalty));
-        Player.BanMovement(BlockedPenalty); // set animation idle when become movable
+        Player.BanMovement(BlockedPenalty, () => { }); // set animation idle when become movable
         //Player.BanMovementOut();
         yield return new WaitForSeconds(BlockedPenalty);
         dizzySound.Stop();

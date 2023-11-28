@@ -1,3 +1,4 @@
+using System;
 using System.Collections; 
 using UnityEngine.Assertions;
 using System.Collections.Generic;
@@ -22,10 +23,21 @@ public class PlayerControl : MonoBehaviour
     // Flash Effect
     [SerializeField] private Flash flashEffect;
 
-    [SerializeField] private float LbodyOffset, RbodyOffset
+    [SerializeField] private float LbodyOffset, RbodyOffset, DizzyLbodyOffset, DizzyRbodyOffset
         , NormalAttackPointOffset, SideAttackPointOffset;
-    public float Lborder() => LbodyOffset + MoveManager.GetPos();
-    public float Rborder() => RbodyOffset + MoveManager.GetPos();
+    public float Lborder()
+    {
+        if (AttackManager.IsDizzy())
+            return DizzyLbodyOffset + MoveManager.GetPos();
+        else 
+            return LbodyOffset + MoveManager.GetPos();
+    }
+    public float Rborder() {
+        if (AttackManager.IsDizzy())
+            return DizzyRbodyOffset + MoveManager.GetPos();
+        else
+            return RbodyOffset + MoveManager.GetPos();
+    }
     public float CenterPos() => (Lborder() + Rborder()) / 2;
 
     // TODO: return attack point according to type
@@ -128,7 +140,7 @@ public class PlayerControl : MonoBehaviour
     }
     public void pressDefend()
     {
-        if (Frozen || !gameController.battling) return;
+        if (Frozen || !gameController.battling || AttackManager.IsDizzy()) return;
         if (AttackManager.IsActive())
         {
             if (CancelCnt == 0)
@@ -159,22 +171,22 @@ public class PlayerControl : MonoBehaviour
             MoveManager.Cancel();
             ResetCancelCnt();
             anim.SetTrigger("hit");
-            BanMovement(WoundedPenalty);
+            BanMovement(WoundedPenalty, () => { anim.SetTrigger("idle"); });
             return true;
         }
         return false;
     } 
 
-    private IEnumerator _BanMovement(float duration)
+    private IEnumerator _BanMovement(float duration, Action onexit)
     {
         Frozen = true;
         yield return new WaitForSeconds(duration);
-        yield return AttackManager.SetIdle();
+        onexit();
         Frozen = false;
     } 
-    public void BanMovement(float last_time)
+    public void BanMovement(float last_time, Action onexit)
     {
-        StartCoroutine(_BanMovement(last_time));
+        StartCoroutine(_BanMovement(last_time, onexit));
     }
     // the direction of enemy to me with length
     public float EnemyDelta()
