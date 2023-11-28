@@ -713,7 +713,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 476899161707766461, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
       propertyPath: RbodyOffset
-      value: 3.65
+      value: 4.36
       objectReference: {fileID: 0}
     - target: {fileID: 476899161707766461, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
       propertyPath: flashEffect
