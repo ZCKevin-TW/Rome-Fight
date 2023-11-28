@@ -732,6 +732,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 416242212}
     - target: {fileID: 476899161707766461, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
+      propertyPath: DizzyLbodyOffset
+      value: 1.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 476899161707766461, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
+      propertyPath: DizzyRbodyOffset
+      value: 4.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 476899161707766461, guid: fc1096a22ab3a7c48bb48e8e71aa5f03, type: 3}
       propertyPath: AttackPointOffset
       value: -3
       objectReference: {fileID: 0}
@@ -2837,6 +2845,14 @@ PrefabInstance:
       propertyPath: gameController
       value: 
       objectReference: {fileID: 416242212}
+    - target: {fileID: 2313800429879619278, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
+      propertyPath: DizzyLbodyOffset
+      value: -4.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313800429879619278, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
+      propertyPath: DizzyRbodyOffset
+      value: -2.17
+      objectReference: {fileID: 0}
     - target: {fileID: 2313800429879619278, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
       propertyPath: AttackPointOffset
       value: 2
