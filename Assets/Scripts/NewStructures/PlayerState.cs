@@ -249,15 +249,20 @@ public class PlayerState : MonoBehaviour
     {
         return AllAttackStates.Contains(curState) || AllDefendStates.Contains(curState);
     }
+    private bool Cancelable()
+    {
+        if (cancelcnt > 0 
+            || curState == StateType.smallhurt 
+            || curState == StateType.bighurt
+            || IsDizzy())
+            return false;
+        return true;
+    }
     public bool ToNextStateOfpressAttack()
     { 
-        if (AllDefendStates.Contains(curState) && cancelcnt == 0)
-        {
-            cancelcnt++;
-            Refresh(StateType.natkpre);
-            return true;
-        } else if (!IsAttackOrDefend())
-        {
+        if (Cancelable()) {
+            if (IsAttackOrDefend())
+              ++cancelcnt;
             Refresh(StateType.natkpre);
             return true;
         }
@@ -265,28 +270,23 @@ public class PlayerState : MonoBehaviour
     }
     public bool ToNextStateOfpressSideAttack()
     {
-        if (AllDefendStates.Contains(curState) && cancelcnt == 0)
-        {
-            cancelcnt++; 
-            Refresh(StateType.satkpre);
-            return true;
-        } else if (!IsAttackOrDefend())
-        {
+        if (Cancelable()) {
+            if (IsAttackOrDefend())
+              ++cancelcnt;
             Refresh(StateType.satkpre);
             return true;
         }
         return false;
     }
-    public void ToNextStateOfpressDefend()
+    public bool ToNextStateOfpressDefend()
     {
-        if (AllAttackStates.Contains(curState) && cancelcnt == 0)
-        {
-            cancelcnt++;
+        if (Cancelable()) {
+            if (IsAttackOrDefend())
+              ++cancelcnt;
             Refresh(StateType.defin);
-        } else if (!IsAttackOrDefend())
-        {
-            Refresh(StateType.defin);
+            return true;
         }
+        return false;
     }
     public void ToNextStateOfpressDash(float dx)
     {
