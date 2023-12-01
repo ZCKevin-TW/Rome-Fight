@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private PlayerState CurrentState;
+    [SerializeField] public PlayerState CurrentState;
     [SerializeField] private bool InputFromUser = true;
     [SerializeField] private HpBar HpManager;
     [SerializeField] private Flash flashEffect;
     private PlayerMovement MoveManager;
     private EnemyStrategy Brain;
     public Animator anim;
+    public Player enemy;
     // Start is called before the first frame update
     void Start()
     {
+        CurrentState = GetComponent<PlayerState>(); 
         anim = GetComponentInChildren<Animator>(); 
         MoveManager = GetComponent<PlayerMovement>();
         Brain = GetComponent<EnemyStrategy>();
@@ -28,20 +30,52 @@ public class Player : MonoBehaviour
             if (Input.GetButton("Fire2")) pressDefend();
             float dx = Input.GetAxisRaw("Horizontal");
             pressMove(dx);
-            pressDash(dx);
+            if (Input.GetButton("Dash"))
+                pressDash(dx);
         }
+
+        if (!enemy.CurrentState.IsInvincible())
+        {
+            if (CurrentState.IsNormalAttacking())
+            {
+                if (enemy.CurrentState.IsDefending())
+                {
+                    CurrentState.ToNextStateOfbeingBlocked();
+                }
+                else
+                {
+                    enemy.CurrentState.ToNextStateOfbeingNormalAttack();
+                } 
+            }
+            else if (CurrentState.IsSideAttacking())
+            {
+                enemy.CurrentState.ToNextStateOfbeingSideAttack();
+            } 
+        }
+        CurrentState.ToNextState();
+    }
+    public void decreaseHP(int x)
+    {
+        Debug.Log("Decrease HP " + x);
+        HpManager.DecreaseHP(x); 
+    }
+    public void teleportForDistance(float dx)
+    {
+        MoveManager.Move(dx);
     }
     public void pressAttack()
     {
-        CurrentState = CurrentState.GetNextStateOfpressAttack();
+        if (CurrentState.ToNextStateOfpressAttack())
+            enemy.GetReadyForAttack();
     }
     public void pressSideAttack()
     {
-        CurrentState = CurrentState.GetNextStateOfpressSideAttack(); 
+        if (CurrentState.ToNextStateOfpressSideAttack())
+            enemy.GetReadyForAttack();
     }
     public void pressDefend()
     {
-        CurrentState = CurrentState.GetNextStateOfpressDefend(); 
+        CurrentState.ToNextStateOfpressDefend();
     }
     public void pressMove(float dx)
     {
@@ -49,12 +83,49 @@ public class Player : MonoBehaviour
         MoveManager.SetFreeze(!CurrentState.Moveable()); 
     }
     public void pressDash(float dx)
-    { 
-        CurrentState = CurrentState.GetNextStateOfpressDash(dx); 
+    {
+        CurrentState.ToNextStateOfpressDash(dx);
     }
     public float getOriginX()
     {
         return MoveManager.GetPos();
+    }
+    public bool InsideHitBox(float x) => CurrentState.PointInsidethis(x);
+    public int Unify(float x)
+    {
+        const float eps = 1e-1f;
+        if (Mathf.Abs(x) <= eps)
+            return 0;
+        return x < 0 ? -1 : 1;
+    }
+    public float AttackEnemyDirection()
+    {
+        return Unify(enemy.CurrentState.GetCenterPos() - CurrentState.Aimpoint);
+    }
+    // only -1, 1 will be returned
+    public float EscapeEnemyDirection()
+    {
+        return -Unify(enemy.CurrentState.Aimpoint - CurrentState.GetCenterPos());
+    }
+    public float DangerDistance()
+    {
+        return Mathf.Abs(CurrentState.GetCenterPos() - enemy.CurrentState.Aimpoint);
+    }
+    public void GetReadyForAttack()
+    {
+        // Debug.Log("Enemy controller getting ready");
+        if (Brain != null)
+        {
+            Brain.ReactToAttack();
+        }
+    } public float EnemyDelta()
+    {
+        if (enemy == null) return 0;
+        return Unify(enemy.CurrentState.GetCenterPos() - CurrentState.GetCenterPos());
+    }
+    public bool HitWall()
+    {
+        return MoveManager.HitWall();
     }
 
 }

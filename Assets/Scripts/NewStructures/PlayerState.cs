@@ -1,15 +1,122 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AYellowpaper.SerializedCollections;
 
-public abstract class PlayerState : MonoBehaviour
+public class PlayerState : MonoBehaviour
 {
     protected Player player;
-    [SerializeField] private float leftBorderoffset, rightborderoffset;
-    [SerializeField] private float aimpointoffset;
-    [SerializeField] protected float starttime, duration;
-    [SerializeField]
-    protected PlayerState
+
+    protected int cancelcnt = 0;
+    [SerializeField] private float leftBorderOffset, rightBorderOffset;
+    [SerializeField] private float dizzyLeftBorderOffset, dizzyRightBorderOffset;
+    [SerializeField] private float normalaimpointoffset, sideaimpointoffset;
+    [SerializeField] protected float starttime;
+    [SerializeField] private AudioSource audioplayer;
+    [SerializedDictionary("Statetype", "Duration(sec)")] 
+    public SerializedDictionary<StateType, float> durationOfState = new SerializedDictionary<StateType, float>
+    {
+        { StateType.natkpre, 0 },
+        { StateType.natkin, 0 },
+        { StateType.natkpost, 0 },
+        { StateType.natkblocked, 0 },
+        { StateType.satkpre, 0 },
+        { StateType.satkin, 0 },
+        { StateType.satkpost, 0 },
+        { StateType.defin, 0 },
+        { StateType.defpost, 0 },
+        { StateType.dashleft, 0 },
+        { StateType.dashright, 0 },
+        { StateType.dashpost, 0 },
+        { StateType.smallhurt, 0 },
+        { StateType.bighurt, 0 },
+        { StateType.idle, 0 }
+    };
+    public SerializedDictionary<StateType, StateType> DefaultNextStateOfState = new SerializedDictionary<StateType, StateType>
+    {
+        { StateType.natkpre, StateType.natkin },
+        { StateType.natkin, StateType.natkpost },
+        { StateType.natkpost, StateType.idle},
+        { StateType.natkblocked, StateType.idle },
+        { StateType.satkpre, StateType.satkin },
+        { StateType.satkin, StateType.satkpost },
+        { StateType.satkpost, StateType.idle },
+        { StateType.defin, StateType.defpost },
+        { StateType.defpost, StateType.idle },
+        { StateType.dashleft, StateType.dashpost },
+        { StateType.dashright, StateType.dashpost },
+        { StateType.dashpost, StateType.idle },
+        { StateType.smallhurt, StateType.idle },
+        { StateType.bighurt, StateType.idle },
+        { StateType.idle, StateType.idle }
+    };
+    // the string is triggered when entering a new state
+    public SerializedDictionary<StateType, string> AnimTriggerNameOfState = new SerializedDictionary<StateType, string>
+    {
+        // TODO: Hook up with animators
+        { StateType.natkpre, "natkpre" },
+        { StateType.natkin, "natkin" },
+        { StateType.natkpost, "natkpost" },
+        { StateType.natkblocked, "natkblocked" },
+        { StateType.satkpre, "satkpre"  },
+        { StateType.satkin, "satkin"  },
+        { StateType.satkpost, "satkpost"  },
+        { StateType.defin, "defin"  },
+        { StateType.defpost, "defpost"  },
+        { StateType.dashleft, "dashleft"  },
+        { StateType.dashright, "dashright"  },
+        { StateType.dashpost, "dashpost"  },
+        { StateType.smallhurt, "smallhurt"  },
+        { StateType.bighurt, "bighurt"  },
+        { StateType.idle, "idle"  }
+    };
+    public SerializedDictionary<StateType, AudioClip> AudioToPlayerOfState = new SerializedDictionary<StateType, AudioClip>
+    {
+        // TODO
+        { StateType.natkpre, null},
+        { StateType.natkin, null},
+        { StateType.natkpost, null},
+        { StateType.natkblocked, null},
+        { StateType.satkpre, null},
+        { StateType.satkin, null},
+        { StateType.satkpost, null},
+        { StateType.defin, null},
+        { StateType.defpost, null},
+        { StateType.dashleft, null},
+        { StateType.dashright, null},
+        { StateType.dashpost, null},
+        { StateType.smallhurt, null},
+        { StateType.bighurt, null},
+        { StateType.idle, null}
+    };
+    [SerializeField] protected float dashoffset = 4;
+    [SerializeField] protected int bighurtdamage = 3, smallhurtdamage = 2;
+    public float LeftBorder
+    {
+        get => (IsDizzy() ? dizzyLeftBorderOffset : leftBorderOffset) + player.getOriginX();
+        set { }
+    }
+    public float Rightborder
+    {
+        get => (IsDizzy() ? dizzyRightBorderOffset : rightBorderOffset) + player.getOriginX();
+        set { }
+    }
+    public float Aimpoint
+    {
+        get 
+        {
+            var SideAttacks = new List<StateType>{ StateType.satkpre, StateType.satkin, StateType.satkpost };
+            return (SideAttacks.Contains(curState) ? sideaimpointoffset : normalaimpointoffset) + player.getOriginX();
+        }
+        set { }
+    }
+    public float Duration
+    {
+        get => durationOfState[curState];
+        set { }
+    }
+    public enum StateType
+    {
         natkpre,
         natkin,
         natkpost,
@@ -21,76 +128,186 @@ public abstract class PlayerState : MonoBehaviour
         defpost,
         dashleft,
         dashright,
+        dashpost,
         smallhurt,
         bighurt,
-        idle;
-        
-    protected int cancelcnt = 0;
+        idle
+    };
+    StateType curState = StateType.idle;
+    [SerializeField] private List<StateType> MoveAbleStates = new List<StateType>() {
+        StateType.dashleft,
+        StateType.dashright,
+        StateType.dashpost,
+        StateType.idle
+    };
+    [SerializeField]
+    private List<StateType> DefendingStates = new List<StateType>() {
+        StateType.defin
+    };
+    [SerializeField] private List<StateType> InvincibleStates = new List<StateType>() {
+        StateType.smallhurt,
+        StateType.bighurt
+    }; 
+    [SerializeField] private List<StateType> AllDefendStates = new List<StateType>() {
+        StateType.defin,
+        StateType.defpost
+    }; 
+    [SerializeField] private List<StateType> AttackingStates = new List<StateType>() {
+        StateType.natkin,
+        StateType.satkin
+    }; 
+    [SerializeField] private List<StateType> AllAttackStates = new List<StateType>() {
+        StateType.natkpre,
+        StateType.natkin,
+        StateType.natkpost,
+        StateType.natkblocked,
+        StateType.satkpre,
+        StateType.satkin,
+        StateType.satkpost,
+    }; 
+    [SerializeField] private List<StateType> WeakStates = new List<StateType>() {
+        StateType.natkpost,
+        StateType.natkblocked,
+        StateType.satkpost,
+    }; 
     private void Start()
     {
         player = GetComponent<Player>();
+        audioplayer = GetComponent<AudioSource>();
     }
-    public virtual bool Moveable()
+    public void Refresh(StateType newState)
     {
-        return true;
+        // TODO:
+        // if audio should stop
+        // audioplayer.stop()
+        //
+        starttime = Time.time;
+        curState = newState;
+        Debug.Log("to new state " + curState);
+        if (!IsAttackOrDefend())
+            cancelcnt = 0;
+        if (curState == StateType.smallhurt)
+            player.decreaseHP(smallhurtdamage);
+        if (curState == StateType.bighurt)
+            player.decreaseHP(bighurtdamage);
+
+        // TODO
+        // remember to do animation
+        // player.anim.SetTrigger(AnimTriggerNameOfState[curState]);
+        if (AudioToPlayerOfState.ContainsKey(curState))
+        { 
+            // TODO should no be null
+            if (AudioToPlayerOfState[curState])
+                audioplayer.PlayOneShot(AudioToPlayerOfState[curState]);
+        }
+    }
+    private void Update()
+    {
+        if (curState == StateType.dashleft)
+            player.teleportForDistance(-dashoffset / Duration * Time.deltaTime);
+        else if (curState == StateType.dashright)
+            player.teleportForDistance(dashoffset / Duration * Time.deltaTime);
+    }
+
+    public bool Moveable()
+    {
+        return MoveAbleStates.Contains(curState);
+    }
+    public bool IsDizzy()
+    {
+        return curState == StateType.natkblocked;
     }
     public float GetCenterPos()
     {
-        return player.getOriginX() + (leftBorderoffset + rightborderoffset) / 2;
+        return (LeftBorder + Rightborder) / 2;
     }
     public bool PointInsidethis(float x)
     {
-        x -= player.getOriginX();
-        return leftBorderoffset <= x && x <= rightborderoffset;
+        return LeftBorder <= x && x <= Rightborder;
     }
-    public virtual bool DefendWorking()
+    public bool IsDefending()
     {
+        return DefendingStates.Contains(curState);
+    }
+    public bool IsInvincible()
+    {
+        return InvincibleStates.Contains(curState);
+    }
+
+    public bool IsNormalAttacking()
+    {
+        return curState == StateType.natkin;
+    }
+    public bool IsSideAttacking()
+    {
+        return curState == StateType.satkin;
+    }
+    private bool IsAttackOrDefend()
+    {
+        return AllAttackStates.Contains(curState) || AllDefendStates.Contains(curState);
+    }
+    public bool ToNextStateOfpressAttack()
+    { 
+        if (AllDefendStates.Contains(curState) && cancelcnt == 0)
+        {
+            cancelcnt++;
+            Refresh(StateType.natkpre);
+            return true;
+        } else if (!IsAttackOrDefend())
+        {
+            Refresh(StateType.natkpre);
+            return true;
+        }
         return false;
     }
-    public virtual bool AttackWorking()
+    public bool ToNextStateOfpressSideAttack()
     {
+        if (AllDefendStates.Contains(curState) && cancelcnt == 0)
+        {
+            cancelcnt++; 
+            Refresh(StateType.satkpre);
+            return true;
+        } else if (!IsAttackOrDefend())
+        {
+            Refresh(StateType.satkpre);
+            return true;
+        }
         return false;
     }
-    public float GetAttackPoint()
+    public void ToNextStateOfpressDefend()
     {
-        return player.getOriginX() + aimpointoffset;
+        if (AllAttackStates.Contains(curState) && cancelcnt == 0)
+        {
+            cancelcnt++;
+            Refresh(StateType.defin);
+        } else if (!IsAttackOrDefend())
+        {
+            Refresh(StateType.defin);
+        }
     }
-    public abstract PlayerState Refresh();
-    public PlayerState SetCancelCount(int x)
+    public void ToNextStateOfpressDash(float dx)
     {
-        cancelcnt = x;
-        return this;
+        if (curState == StateType.idle && dx != 0)
+            Refresh(dx < 0 ? StateType.dashleft : StateType.dashright);
     }
-    public virtual PlayerState GetNextStateOfpressAttack()
+    public void ToNextStateOfbeingBlocked()
     {
-        return this;
+        Debug.Assert(curState == StateType.natkin);
+        Refresh(StateType.natkblocked); 
     }
-    public virtual PlayerState GetNextStateOfpressSideAttack()
+    public void ToNextStateOfbeingNormalAttack()
     {
-        return this;
+        Debug.Assert(curState != StateType.defin);
+        Refresh(WeakStates.Contains(curState) ? StateType.bighurt : StateType.smallhurt);
     }
-    public virtual PlayerState GetNextStateOfpressDefend()
+    public void ToNextStateOfbeingSideAttack()
     {
-        return this;
+        Refresh(WeakStates.Contains(curState) ? StateType.bighurt : StateType.smallhurt);
     }
-    public virtual PlayerState GetNextStateOfpressDash(float dx)
+    public void ToNextState()
     {
-        return this;
-    }
-    public virtual PlayerState GetNextStateOfbeingBlocked()
-    {
-        return this;
-    }
-    public virtual PlayerState GetNextStateOfbeingNormalAttack()
-    {
-        return this;
-    }
-    public virtual PlayerState GetNextStateOfbeingSideAttack()
-    {
-        return this;
-    }
-    public virtual PlayerState GetNextState()
-    {
-        return this;
+        if (Time.time - starttime < Duration || curState == StateType.idle)
+            return;
+        Refresh(DefaultNextStateOfState[curState]);
     }
 }

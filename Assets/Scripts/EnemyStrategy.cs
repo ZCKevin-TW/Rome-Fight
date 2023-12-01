@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyStrategy : MonoBehaviour
 {
     // Start is called before the first frame update
-    private PlayerControl PlayerAPI;
+    private Player PlayerAPI;
     [SerializeField] private float MaxPatterTime = .8f;
     private float ReactTime() => NextGaussian(.5f, .2f, 0f, 2f);
     [SerializeField] private float CloseDis = .1f;
@@ -25,7 +25,8 @@ public class EnemyStrategy : MonoBehaviour
 
     void Start()
     {
-        PlayerAPI = GetComponent<PlayerControl>();
+        //PlayerAPI = GetComponent<PlayerControl>();
+        PlayerAPI = GetComponent<Player>();
     //    Debug.Log("awaking");
         InVisionTime = 0;
         CurrentMode = Mode.Idle;
@@ -43,19 +44,24 @@ public class EnemyStrategy : MonoBehaviour
 // Debug.Log("Enemy strategy update");
         if (PlayerAPI.HitWall()) dx *= -1;
         PlayerAPI.pressMove(dx);
-        if (!PlayerAPI.Enemy.InsideHitBox(PlayerAPI.GetAttackPoint(Attack.AttackType.Normal)))
+        if (!PlayerAPI.enemy.InsideHitBox(PlayerAPI.CurrentState.Aimpoint))
             InVisionTime = 0;
         else
             ++InVisionTime;
-        if (InVisionTime > 20 && CurrentMode == Mode.Attack)
-            PlayerAPI.pressAttack(Random.Range(0f, 1f) > SideAttackProb ? Attack.AttackType.Normal : Attack.AttackType.Side);
+        if (InVisionTime > 20 && CurrentMode == Mode.Attack) 
+        {
+            if (Random.Range(0f, 1f) > SideAttackProb)
+                PlayerAPI.pressAttack();
+            else
+                PlayerAPI.pressSideAttack();
+        }
 
         switch (CurrentMode)
         {
             case Mode.Idle:
                 break;
             case Mode.Attack:
-                PlayerAPI.pressMove(PlayerAPI.AttackEnemyDirection(Attack.AttackType.Normal));
+                PlayerAPI.pressMove(PlayerAPI.AttackEnemyDirection());
                 break;
             case Mode.Escape:
                 PlayerAPI.pressMove(PlayerAPI.EscapeEnemyDirection());
@@ -109,7 +115,7 @@ public class EnemyStrategy : MonoBehaviour
             Debug.Log("Close so dangerous");
             PlayerAPI.pressDefend();
         }
-        else if (PlayerAPI.InsideHitBox(PlayerAPI.Enemy.GetAttackPoint(Attack.AttackType.Normal)))
+        else if (PlayerAPI.InsideHitBox(PlayerAPI.enemy.CurrentState.Aimpoint))
         {
             PlayerAPI.pressDefend();
         } 

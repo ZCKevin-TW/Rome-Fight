@@ -26,6 +26,11 @@ public class PlayerMovement : MonoBehaviour
         rd = GetComponent<Rigidbody2D>();
         Frozen = false;
     }
+    public void Move(float dx)
+    {
+        rd.position = new Vector2(rd.position.x + dx, rd.position.y);
+        ClampPosition(); 
+    }
     public float GetPos()
     {
         return rd.position.x;
