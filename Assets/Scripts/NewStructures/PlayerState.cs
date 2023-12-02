@@ -7,7 +7,7 @@ public class PlayerState : MonoBehaviour
 {
     protected Player player;
 
-    protected int cancelcnt = 0;
+    public int cancelcnt = 0;
     [SerializeField] private float leftBorderOffset, rightBorderOffset;
     [SerializeField] private float dizzyLeftBorderOffset, dizzyRightBorderOffset;
     [SerializeField] private float normalaimpointoffset, sideaimpointoffset;
@@ -135,7 +135,7 @@ public class PlayerState : MonoBehaviour
         idle
     };
     StateType curState = StateType.idle;
-    [SerializeField] private List<StateType> MoveAbleStates = new List<StateType>() {
+    [SerializeField] private List<StateType> MoveableStates = new List<StateType>() {
         StateType.dashleft,
         StateType.dashright,
         StateType.dashpost,
@@ -149,7 +149,7 @@ public class PlayerState : MonoBehaviour
         StateType.smallhurt,
         StateType.bighurt
     }; 
-    [SerializeField] private List<StateType> AllDefendStates = new List<StateType>() {
+    private List<StateType> AllDefendStates = new List<StateType>() {
         StateType.defin,
         StateType.defpost
     }; 
@@ -157,7 +157,7 @@ public class PlayerState : MonoBehaviour
         StateType.natkin,
         StateType.satkin
     }; 
-    [SerializeField] private List<StateType> AllAttackStates = new List<StateType>() {
+    private List<StateType> AllAttackStates = new List<StateType>() {
         StateType.natkpre,
         StateType.natkin,
         StateType.natkpost,
@@ -214,7 +214,7 @@ public class PlayerState : MonoBehaviour
 
     public bool Moveable()
     {
-        return MoveAbleStates.Contains(curState);
+        return MoveableStates.Contains(curState);
     }
     public bool IsDizzy()
     {
@@ -260,7 +260,8 @@ public class PlayerState : MonoBehaviour
     }
     public bool ToNextStateOfpressAttack()
     { 
-        if (Cancelable()) {
+        if (AllAttackStates.Contains(curState)) return false;
+        if (Cancelable()) { 
             if (IsAttackOrDefend())
               ++cancelcnt;
             Refresh(StateType.natkpre);
@@ -270,6 +271,7 @@ public class PlayerState : MonoBehaviour
     }
     public bool ToNextStateOfpressSideAttack()
     {
+        if (AllAttackStates.Contains(curState)) return false;
         if (Cancelable()) {
             if (IsAttackOrDefend())
               ++cancelcnt;
@@ -280,6 +282,7 @@ public class PlayerState : MonoBehaviour
     }
     public bool ToNextStateOfpressDefend()
     {
+        if (AllDefendStates.Contains(curState)) return false;
         if (Cancelable()) {
             if (IsAttackOrDefend())
               ++cancelcnt;

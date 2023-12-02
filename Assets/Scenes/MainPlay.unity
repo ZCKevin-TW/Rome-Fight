@@ -3484,11 +3484,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dbea759cda7c744897ec0c4e19f59e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftBorderOffset: 1.23
-  rightBorderOffset: 4.36
-  dizzyLeftBorderOffset: 1.23
-  dizzyRightBorderOffset: 4.36
-  normalaimpointoffset: 0
+  cancelcnt: 0
+  leftBorderOffset: 1
+  rightBorderOffset: 4
+  dizzyLeftBorderOffset: 1
+  dizzyRightBorderOffset: 4
+  normalaimpointoffset: -1
   sideaimpointoffset: 0
   starttime: 0
   audioplayer: {fileID: 0}
@@ -3620,9 +3621,7 @@ MonoBehaviour:
   MoveAbleStates: 090000000a0000000b0000000e000000
   DefendingStates: 070000000c0000000d000000
   InvincibleStates: 0c0000000d000000
-  AllDefendStates: 0700000008000000
   AttackingStates: 0100000005000000
-  AllAttackStates: 00000000010000000200000003000000040000000500000006000000
   WeakStates: 020000000300000006000000
 --- !u!114 &7432677833184396759
 MonoBehaviour:
@@ -3847,7 +3846,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9210157332333382937}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cc6dd7ee8a4c674892915917d96c2f3, type: 3}
   m_Name: 
@@ -3868,14 +3867,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dbea759cda7c744897ec0c4e19f59e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftBorderOffset: -4.5
-  rightBorderOffset: -0.27
-  dizzyLeftBorderOffset: -4.3
-  dizzyRightBorderOffset: -2.17
+  cancelcnt: 0
+  leftBorderOffset: -3.5
+  rightBorderOffset: -0.7
+  dizzyLeftBorderOffset: -4.5
+  dizzyRightBorderOffset: -2.8
   normalaimpointoffset: 0
-  sideaimpointoffset: 0
+  sideaimpointoffset: -0.5
   starttime: 0
-  audioplayer: {fileID: 0}
+  audioplayer: {fileID: 1095291511927370534}
   durationOfState:
     _serializedList:
     - Key: 0
@@ -4004,9 +4004,7 @@ MonoBehaviour:
   MoveAbleStates: 090000000a0000000b0000000e000000
   DefendingStates: 070000000c0000000d000000
   InvincibleStates: 0c0000000d000000
-  AllDefendStates: 0700000008000000
   AttackingStates: 0100000005000000
-  AllAttackStates: 00000000010000000200000003000000040000000500000006000000
   WeakStates: 020000000300000006000000
 --- !u!114 &9210157332611402340
 MonoBehaviour:
