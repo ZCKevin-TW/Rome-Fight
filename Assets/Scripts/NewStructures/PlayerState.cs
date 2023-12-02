@@ -54,21 +54,22 @@ public class PlayerState : MonoBehaviour
     public SerializedDictionary<StateType, string> AnimTriggerNameOfState = new SerializedDictionary<StateType, string>
     {
         // TODO: Hook up with animators
+        // edit in inspector
         { StateType.natkpre, "natkpre" },
         { StateType.natkin, "natkin" },
         { StateType.natkpost, "natkpost" },
         { StateType.natkblocked, "natkblocked" },
-        { StateType.satkpre, "satkpre"  },
-        { StateType.satkin, "satkin"  },
-        { StateType.satkpost, "satkpost"  },
-        { StateType.defin, "defin"  },
-        { StateType.defpost, "defpost"  },
-        { StateType.dashleft, "dashleft"  },
-        { StateType.dashright, "dashright"  },
-        { StateType.dashpost, "dashpost"  },
-        { StateType.smallhurt, "smallhurt"  },
-        { StateType.bighurt, "bighurt"  },
-        { StateType.idle, "idle"  }
+        { StateType.satkpre, "satkpre" },
+        { StateType.satkin, "satkin" },
+        { StateType.satkpost, "satkpost" },
+        { StateType.defin, "defin" },
+        { StateType.defpost, "defpost" },
+        { StateType.dashleft, "dashleft" },
+        { StateType.dashright, "dashright" },
+        { StateType.dashpost, "dashpost" },
+        { StateType.smallhurt, "smallhurt" },
+        { StateType.bighurt, "bighurt" },
+        { StateType.idle, "idle" }
     };
     public SerializedDictionary<StateType, AudioClip> AudioToPlayerOfState = new SerializedDictionary<StateType, AudioClip>
     {
@@ -191,12 +192,14 @@ public class PlayerState : MonoBehaviour
         if (curState == StateType.bighurt)
             player.decreaseHP(bighurtdamage);
 
-        // TODO
-        // remember to do animation
-        // player.anim.SetTrigger(AnimTriggerNameOfState[curState]);
+        // TODO(ZoeTsou): trigger animation
+        Debug.Log("trigger animation " + AnimTriggerNameOfState[curState]);
+        player.anim.SetTrigger(AnimTriggerNameOfState[curState]);
+
+        // TODO(ZoeTsou): trigger audio
         if (AudioToPlayerOfState.ContainsKey(curState))
-        { 
-            // TODO should no be null
+        {
+            // TODO should not be null
             if (AudioToPlayerOfState[curState])
                 audioplayer.PlayOneShot(AudioToPlayerOfState[curState]);
         }

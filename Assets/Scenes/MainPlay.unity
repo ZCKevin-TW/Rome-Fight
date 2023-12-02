@@ -2971,7 +2971,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2313800429624699319, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2313800429624699319, guid: bfb6444a13b71d446bb4116722ede837, type: 3}
       propertyPath: StrategySwitchTime
@@ -3497,7 +3497,7 @@ MonoBehaviour:
     - Key: 0
       Value: 0.5
     - Key: 1
-      Value: 0.08
+      Value: 0.24
     - Key: 2
       Value: 1
     - Key: 3
@@ -3509,7 +3509,7 @@ MonoBehaviour:
     - Key: 6
       Value: 1
     - Key: 7
-      Value: 1
+      Value: 2
     - Key: 8
       Value: 0.1
     - Key: 9
@@ -3559,35 +3559,29 @@ MonoBehaviour:
   AnimTriggerNameOfState:
     _serializedList:
     - Key: 0
-      Value: natkpre
+      Value: normalAttack
     - Key: 1
-      Value: natkin
+      Value: inAttack
     - Key: 2
-      Value: natkpost
+      Value: idle
     - Key: 3
-      Value: natkblocked
-    - Key: 4
-      Value: satkpre
-    - Key: 5
-      Value: satkin
-    - Key: 6
-      Value: satkpost
+      Value: dizzy
     - Key: 7
-      Value: defin
+      Value: defending
     - Key: 8
-      Value: defpost
+      Value: idle
     - Key: 9
       Value: dashleft
     - Key: 10
       Value: dashright
     - Key: 11
-      Value: dashpost
-    - Key: 12
-      Value: smallhurt
-    - Key: 13
-      Value: bighurt
+      Value: idle
     - Key: 14
       Value: idle
+    - Key: 12
+      Value: hit
+    - Key: 13
+      Value: hit
   AudioToPlayerOfState:
     _serializedList:
     - Key: 0
@@ -3645,7 +3639,7 @@ MonoBehaviour:
   CurrentState: {fileID: 0}
   InputFromUser: 1
   HpManager: {fileID: 1957459964}
-  flashEffect: {fileID: 0}
+  flashEffect: {fileID: 2849244522710674464}
   anim: {fileID: 2849244522710674461}
   enemy: {fileID: 9210157332611402340}
 --- !u!212 &9210157332096256665
@@ -3949,35 +3943,29 @@ MonoBehaviour:
   AnimTriggerNameOfState:
     _serializedList:
     - Key: 0
-      Value: natkpre
+      Value: normalAttack
     - Key: 1
-      Value: natkin
+      Value: inAttack
     - Key: 2
-      Value: natkpost
+      Value: idle
     - Key: 3
-      Value: natkblocked
+      Value: dizzy
     - Key: 4
-      Value: satkpre
+      Value: sideAttack
     - Key: 5
-      Value: satkin
+      Value: inAttack
     - Key: 6
-      Value: satkpost
+      Value: idle
     - Key: 7
-      Value: defin
+      Value: defending
     - Key: 8
-      Value: defpost
-    - Key: 9
-      Value: dashleft
-    - Key: 10
-      Value: dashright
-    - Key: 11
-      Value: dashpost
-    - Key: 12
-      Value: smallhurt
-    - Key: 13
-      Value: bighurt
+      Value: idle
     - Key: 14
       Value: idle
+    - Key: 12
+      Value: hit
+    - Key: 13
+      Value: hit
   AudioToPlayerOfState:
     _serializedList:
     - Key: 0
@@ -4035,6 +4023,6 @@ MonoBehaviour:
   CurrentState: {fileID: 0}
   InputFromUser: 0
   HpManager: {fileID: 578650366}
-  flashEffect: {fileID: 0}
+  flashEffect: {fileID: 9210157332096256672}
   anim: {fileID: 9210157332096256670}
   enemy: {fileID: 7432677833184396759}
