@@ -181,7 +181,9 @@ public class PlayerState : MonoBehaviour
         // TODO:
         // if audio should stop
         // audioplayer.stop()
-        //
+        if (curState == StateType.natkblocked)
+            audioplayer.Stop();
+
         starttime = Time.time;
         curState = newState;
         Debug.Log("to new state " + curState);
@@ -192,7 +194,6 @@ public class PlayerState : MonoBehaviour
         if (curState == StateType.bighurt)
             player.decreaseHP(bighurtdamage);
 
-        // TODO(ZoeTsou): trigger animation
         Debug.Log("trigger animation " + AnimTriggerNameOfState[curState]);
         player.anim.SetTrigger(AnimTriggerNameOfState[curState]);
 

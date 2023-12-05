@@ -1065,7 +1065,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0b1067138631f92489684317acfe1462, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.317
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1161,7 +1161,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 810ab488917eec445ad5f547eccfa59f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.316
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3510,7 +3510,7 @@ MonoBehaviour:
     - Key: 6
       Value: 1
     - Key: 7
-      Value: 2
+      Value: 1.5
     - Key: 8
       Value: 0.1
     - Key: 9
@@ -3585,40 +3585,22 @@ MonoBehaviour:
       Value: hit
   AudioToPlayerOfState:
     _serializedList:
-    - Key: 0
-      Value: {fileID: 0}
     - Key: 1
-      Value: {fileID: 0}
-    - Key: 2
-      Value: {fileID: 0}
+      Value: {fileID: 8300000, guid: f6efe8dda1ee57b4c8ca8e14797867a5, type: 3}
     - Key: 3
-      Value: {fileID: 0}
-    - Key: 4
-      Value: {fileID: 0}
-    - Key: 5
-      Value: {fileID: 0}
-    - Key: 6
-      Value: {fileID: 0}
-    - Key: 7
-      Value: {fileID: 0}
-    - Key: 8
-      Value: {fileID: 0}
+      Value: {fileID: 8300000, guid: ca369ba5b540a29479620d5fd875f68e, type: 3}
     - Key: 9
-      Value: {fileID: 0}
+      Value: {fileID: 8300000, guid: 59ab97af1e07e534abcc85c5949ce02a, type: 3}
     - Key: 10
-      Value: {fileID: 0}
-    - Key: 11
-      Value: {fileID: 0}
+      Value: {fileID: 8300000, guid: 59ab97af1e07e534abcc85c5949ce02a, type: 3}
     - Key: 12
-      Value: {fileID: 0}
+      Value: {fileID: 8300000, guid: 8b49e80a6f4312e49994a1fa27251df5, type: 3}
     - Key: 13
-      Value: {fileID: 0}
-    - Key: 14
-      Value: {fileID: 0}
+      Value: {fileID: 8300000, guid: 8b49e80a6f4312e49994a1fa27251df5, type: 3}
   dashoffset: 4
   bighurtdamage: 3
   smallhurtdamage: 2
-  MoveAbleStates: 090000000a0000000b0000000e000000
+  MoveableStates: 090000000a0000000b0000000e000000
   DefendingStates: 070000000c0000000d000000
   InvincibleStates: 0c0000000d000000
   AttackingStates: 0100000005000000
@@ -3846,7 +3828,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9210157332333382937}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cc6dd7ee8a4c674892915917d96c2f3, type: 3}
   m_Name: 
@@ -3893,7 +3875,7 @@ MonoBehaviour:
     - Key: 6
       Value: 1
     - Key: 7
-      Value: 1
+      Value: 1.5
     - Key: 8
       Value: 0.1
     - Key: 9
@@ -3968,40 +3950,24 @@ MonoBehaviour:
       Value: hit
   AudioToPlayerOfState:
     _serializedList:
-    - Key: 0
-      Value: {fileID: 0}
     - Key: 1
-      Value: {fileID: 0}
-    - Key: 2
-      Value: {fileID: 0}
+      Value: {fileID: 8300000, guid: f04c5f6a8cce4a74b88ccb4503d4c464, type: 3}
     - Key: 3
-      Value: {fileID: 0}
-    - Key: 4
-      Value: {fileID: 0}
+      Value: {fileID: 8300000, guid: ca369ba5b540a29479620d5fd875f68e, type: 3}
     - Key: 5
-      Value: {fileID: 0}
-    - Key: 6
-      Value: {fileID: 0}
-    - Key: 7
-      Value: {fileID: 0}
-    - Key: 8
-      Value: {fileID: 0}
+      Value: {fileID: 8300000, guid: f04c5f6a8cce4a74b88ccb4503d4c464, type: 3}
     - Key: 9
-      Value: {fileID: 0}
+      Value: {fileID: 8300000, guid: 59ab97af1e07e534abcc85c5949ce02a, type: 3}
     - Key: 10
-      Value: {fileID: 0}
-    - Key: 11
-      Value: {fileID: 0}
+      Value: {fileID: 8300000, guid: 59ab97af1e07e534abcc85c5949ce02a, type: 3}
     - Key: 12
-      Value: {fileID: 0}
+      Value: {fileID: 8300000, guid: 8b49e80a6f4312e49994a1fa27251df5, type: 3}
     - Key: 13
-      Value: {fileID: 0}
-    - Key: 14
-      Value: {fileID: 0}
+      Value: {fileID: 8300000, guid: 8b49e80a6f4312e49994a1fa27251df5, type: 3}
   dashoffset: 4
   bighurtdamage: 3
   smallhurtdamage: 2
-  MoveAbleStates: 090000000a0000000b0000000e000000
+  MoveableStates: 090000000a0000000b0000000e000000
   DefendingStates: 070000000c0000000d000000
   InvincibleStates: 0c0000000d000000
   AttackingStates: 0100000005000000
