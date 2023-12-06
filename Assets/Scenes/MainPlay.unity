@@ -1887,7 +1887,7 @@ GameObject:
   - component: {fileID: 704208178}
   - component: {fileID: 704208177}
   m_Layer: 0
-  m_Name: Star
+  m_Name: Star_Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2148,7 +2148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &950022094
 Transform:
   m_ObjectHideFlags: 0
@@ -3700,7 +3700,7 @@ MonoBehaviour:
   hitImage: {fileID: 0}
   hitEffectTime: 0.2
   anim: {fileID: 0}
-  star: {fileID: 0}
+  star: {fileID: 950022093}
   cancelcnt: 0
   leftBorderOffset: 1
   rightBorderOffset: 4
@@ -4070,7 +4070,7 @@ MonoBehaviour:
   hitImage: {fileID: 0}
   hitEffectTime: 0.2
   anim: {fileID: 0}
-  star: {fileID: 0}
+  star: {fileID: 704208175}
   cancelcnt: 0
   leftBorderOffset: -3.5
   rightBorderOffset: -0.7
