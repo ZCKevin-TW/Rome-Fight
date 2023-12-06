@@ -7,7 +7,11 @@ public class PlayerState : MonoBehaviour
 {
     protected Player player;
 
-    private GameObject star;
+    // Visual Effects
+    [SerializeField] private GameObject hitImage;
+    [SerializeField] private float hitEffectTime = .2f;
+    [SerializeField] private Animator anim;
+    [SerializeField] private GameObject star;
 
     public int cancelcnt = 0;
     [SerializeField] private float leftBorderOffset, rightBorderOffset;
@@ -177,9 +181,6 @@ public class PlayerState : MonoBehaviour
     {
         player = GetComponent<Player>();
         audioplayer = GetComponent<AudioSource>();
-        star = transform.Find("Star").gameObject;
-        if (star == null)
-            Debug.Log("Cannot find star game object");
     }
     public void Refresh(StateType newState)
     {
@@ -202,6 +203,7 @@ public class PlayerState : MonoBehaviour
         if (curState == StateType.bighurt)
             player.decreaseHP(bighurtdamage);
 
+        // TODO: need enemy.isHit()
 
         Debug.Log("trigger animation " + AnimTriggerNameOfState[curState]);
         player.anim.SetTrigger(AnimTriggerNameOfState[curState]);
@@ -213,6 +215,16 @@ public class PlayerState : MonoBehaviour
                 audioplayer.PlayOneShot(AudioToPlayerOfState[curState]);
         }
     }
+    private IEnumerator HitSucceedEffect()
+    {
+        hitImage.SetActive(true);
+        hitImage.transform.SetParent(null);
+        yield return new WaitForSeconds(hitEffectTime);
+        hitImage.transform.SetParent(this.gameObject.transform);
+        hitImage.SetActive(false);
+        yield return null;
+    }
+
     private void Update()
     {
         if (curState == StateType.dashleft)
