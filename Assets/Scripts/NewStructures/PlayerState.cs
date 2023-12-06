@@ -7,6 +7,8 @@ public class PlayerState : MonoBehaviour
 {
     protected Player player;
 
+    private GameObject star;
+
     public int cancelcnt = 0;
     [SerializeField] private float leftBorderOffset, rightBorderOffset;
     [SerializeField] private float dizzyLeftBorderOffset, dizzyRightBorderOffset;
@@ -175,14 +177,20 @@ public class PlayerState : MonoBehaviour
     {
         player = GetComponent<Player>();
         audioplayer = GetComponent<AudioSource>();
+        star = transform.Find("Star").gameObject;
+        if (star == null)
+            Debug.Log("Cannot find star game object");
     }
     public void Refresh(StateType newState)
     {
-        // TODO:
-        // if audio should stop
-        // audioplayer.stop()
         if (curState == StateType.natkblocked)
             audioplayer.Stop();
+
+        // dizzy star animation
+        if (curState == StateType.natkblocked)
+            star.SetActive(false);
+        else if (newState == StateType.natkblocked)
+            star.SetActive(true);
 
         starttime = Time.time;
         curState = newState;
@@ -194,10 +202,10 @@ public class PlayerState : MonoBehaviour
         if (curState == StateType.bighurt)
             player.decreaseHP(bighurtdamage);
 
+
         Debug.Log("trigger animation " + AnimTriggerNameOfState[curState]);
         player.anim.SetTrigger(AnimTriggerNameOfState[curState]);
 
-        // TODO(ZoeTsou): trigger audio
         if (AudioToPlayerOfState.ContainsKey(curState))
         {
             // TODO should not be null
