@@ -12,6 +12,7 @@ public class PlayerState : MonoBehaviour
     [SerializeField] private float hitEffectTime = .2f;
     [SerializeField] private Animator anim;
     [SerializeField] private GameObject star;
+    [SerializeField] private Flash flashEffect;
 
     public int cancelcnt = 0;
     [SerializeField] private float leftBorderOffset, rightBorderOffset;
@@ -198,10 +199,18 @@ public class PlayerState : MonoBehaviour
         Debug.Log("to new state " + curState);
         if (!IsAttackOrDefend())
             cancelcnt = 0;
-        if (curState == StateType.smallhurt)
-            player.decreaseHP(smallhurtdamage);
-        if (curState == StateType.bighurt)
-            player.decreaseHP(bighurtdamage);
+
+        // damaged
+        if (curState == StateType.smallhurt || curState == StateType.bighurt)
+        {
+            if (curState == StateType.smallhurt)
+                player.decreaseHP(smallhurtdamage);
+            if (curState == StateType.bighurt)
+                player.decreaseHP(bighurtdamage);
+
+            flashEffect.StartFlash();
+        }
+        
 
         // TODO: need enemy.isHit()
 
