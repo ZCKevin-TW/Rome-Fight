@@ -15,6 +15,8 @@ public class PlayerState : MonoBehaviour
     [SerializeField] private Flash flashEffect;
 
     public int cancelcnt = 0;
+    private bool isHitting;
+    private Coroutine lastrountine = null;
     [SerializeField] private Transform lbd, rbd, dlbd, drbd, nap, sap;
     private float leftBorder
     {
@@ -143,7 +145,6 @@ public class PlayerState : MonoBehaviour
     public float Duration
     {
         get => durationOfState[curState];
-        set { }
     }
     public enum StateType
     {
@@ -209,18 +210,26 @@ public class PlayerState : MonoBehaviour
     {
         if (curState == StateType.natkblocked)
             audioplayer.Stop();
-
+        if (lastrountine != null)
+        { 
+            StopCoroutine(lastrountine);
+            lastrountine = null;
+            isHitting = false;
+        }
         // dizzy star animation
         if (curState == StateType.natkblocked)
             star.SetActive(false);
         else if (newState == StateType.natkblocked)
             star.SetActive(true);
 
+
         starttime = Time.time;
         curState = newState;
         Debug.Log("to new state " + curState);
         if (!IsAttackOrDefend())
             cancelcnt = 0;
+        if (curState == StateType.natkin || curState == StateType.satkin)
+            lastrountine = StartCoroutine(StartHitAfter(Duration/2));
 
         // damaged
         if (curState == StateType.smallhurt || curState == StateType.bighurt)
@@ -232,8 +241,6 @@ public class PlayerState : MonoBehaviour
 
             flashEffect.StartFlash();
         }
-        
-
         // TODO: need enemy.isHit()
 
         Debug.Log("trigger animation " + AnimTriggerNameOfState[curState]);
@@ -254,6 +261,13 @@ public class PlayerState : MonoBehaviour
         hitImage.transform.SetParent(this.gameObject.transform);
         hitImage.SetActive(false);
         yield return null;
+    }
+    private IEnumerator StartHitAfter(float sec)
+    {
+        yield return new WaitForSeconds(sec);
+        isHitting = true;
+        yield return new WaitForSeconds(.1f);
+        isHitting = false; 
     }
 
     private void Update()
@@ -287,15 +301,14 @@ public class PlayerState : MonoBehaviour
     public bool IsInvincible()
     {
         return InvincibleStates.Contains(curState);
-    }
-
+    } 
     public bool IsNormalAttacking()
     {
-        return curState == StateType.natkin;
+        return curState == StateType.natkin && isHitting;
     }
     public bool IsSideAttacking()
     {
-        return curState == StateType.satkin;
+        return curState == StateType.satkin && isHitting;
     }
     private bool IsAttackOrDefend()
     {
