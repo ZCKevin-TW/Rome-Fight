@@ -26,14 +26,10 @@ public class EnemyStrategy : MonoBehaviour
     void Start()
     {
         //PlayerAPI = GetComponent<PlayerControl>();
-        PlayerAPI = GetComponent<Player>(); 
+        PlayerAPI = GetComponent<Player>();
     //    Debug.Log("awaking");
         InVisionTime = 0;
         CurrentMode = Mode.Idle;
-
-        return;
-        // for testing 
-
         StartCoroutine("RandomMoving");
         StartCoroutine("Switching");
     } 
@@ -42,8 +38,8 @@ public class EnemyStrategy : MonoBehaviour
     void Update()
     {
         // PlayerAPI.BanMovement(1000f, () => { });
-        PlayerAPI.pressSideAttack();
-        return;
+//        PlayerAPI.pressAttack(Attack.AttackType.Side);
+//        return;
 
 // Debug.Log("Enemy strategy update");
         if (PlayerAPI.HitWall()) dx *= -1;
@@ -112,8 +108,6 @@ public class EnemyStrategy : MonoBehaviour
     }
     IEnumerator _ReactToAttack()
     {
-        if (PlayerAPI == null)
-            yield break;
         yield return new WaitForSeconds(ReactTime());
 
         if (PlayerAPI.DangerDistance() <= CloseDis)
