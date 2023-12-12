@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] private HpBar PlayerHP;
     [SerializeField] private HpBar EnemyHP;
+    [SerializeField] private Player[] players;
 
     [SerializeField] private AudioSource countdownSound;
     [SerializeField] private AudioSource battleBGM;
@@ -37,6 +38,8 @@ public class GameController : MonoBehaviour
         battleBGM.Play();
         PlayerHP.SetStarted(true);
         EnemyHP.SetStarted(true);
+        foreach (var p in players)
+            p.GameStart();
     }
     public void GameFinished(bool playerWin)
     {

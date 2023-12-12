@@ -1030,6 +1030,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerHP: {fileID: 1957459964}
   EnemyHP: {fileID: 578650366}
+  players:
+  - {fileID: 7432677833184396759}
+  - {fileID: 9210157332611402340}
   countdownSound: {fileID: 416242214}
   battleBGM: {fileID: 416242215}
   WinString: {fileID: 2120081348}

@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] private bool InputFromUser = true;
     [SerializeField] private HpBar HpManager;
     [SerializeField] private Flash flashEffect;
+    private bool Active;
     private PlayerMovement MoveManager;
     private EnemyStrategy Brain;
     public Animator anim;
@@ -15,15 +16,17 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Active = false;
         CurrentState = GetComponent<PlayerState>(); 
         anim = GetComponentInChildren<Animator>(); 
         MoveManager = GetComponent<PlayerMovement>();
         Brain = GetComponent<EnemyStrategy>();
-    }
-
+    } 
     // Update is called once per frame
     void Update()
     {
+        if (!Active)
+            return;
         if (InputFromUser)
         {
             if (Input.GetButton("Fire1")) pressAttack();
@@ -54,6 +57,10 @@ public class Player : MonoBehaviour
         }
         CurrentState.ToNextState();
     }
+    public void GameStart()
+    {
+        Active = true;
+    }
     public void decreaseHP(int x)
     {
         Debug.Log("Decrease HP " + x);
@@ -65,25 +72,30 @@ public class Player : MonoBehaviour
     }
     public void pressAttack()
     {
+        if (!Active) return;
         if (CurrentState.ToNextStateOfpressAttack())
             enemy.GetReadyForAttack();
     }
     public void pressSideAttack()
     {
+        if (!Active) return;
         if (CurrentState.ToNextStateOfpressSideAttack())
             enemy.GetReadyForAttack();
     }
     public void pressDefend()
     {
+        if (!Active) return;
         CurrentState.ToNextStateOfpressDefend();
     }
     public void pressMove(float dx)
     {
+        if (!Active) return;
         MoveManager.SetInput(dx);
         MoveManager.SetFreeze(!CurrentState.Moveable()); 
     }
     public void pressDash(float dx)
     {
+        if (!Active) return;
         CurrentState.ToNextStateOfpressDash(dx);
     }
     public float getOriginX()
