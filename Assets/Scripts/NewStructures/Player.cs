@@ -37,8 +37,13 @@ public class Player : MonoBehaviour
                 pressDash(dx);
         }
 
-        if (!enemy.CurrentState.IsInvincible())
+        if (!enemy.CurrentState.IsInvincible() && enemy.InsideHitBox(CurrentState.Aimpoint))
         {
+            // Debug
+            if (CurrentState.IsNormalAttacking() || CurrentState.IsSideAttacking())
+            {
+                Debug.Log(CurrentState.Aimpoint + " hit box in " + enemy.CurrentState.LeftBorder + ", " + enemy.CurrentState.Rightborder);
+            }
             if (CurrentState.IsNormalAttacking())
             {
                 if (enemy.CurrentState.IsDefending())

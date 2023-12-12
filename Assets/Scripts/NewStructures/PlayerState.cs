@@ -15,11 +15,33 @@ public class PlayerState : MonoBehaviour
     [SerializeField] private Flash flashEffect;
 
     public int cancelcnt = 0;
-    [SerializeField] private float leftBorderOffset, rightBorderOffset;
-    [SerializeField] private float dizzyLeftBorderOffset, dizzyRightBorderOffset;
-    [SerializeField] private float normalaimpointoffset, sideaimpointoffset;
-    [SerializeField] protected float starttime;
-    [SerializeField] private AudioSource audioplayer;
+    [SerializeField] private Transform lbd, rbd, dlbd, drbd, nap, sap;
+    private float leftBorder
+    {
+        get => lbd.position.x; 
+    }
+    private float rightBorder
+    {
+        get => rbd.position.x;
+    }
+    private float dizzyLeftBorder
+    {
+        get => dlbd.position.x;
+    }
+    private float dizzyRightBorder
+    {
+        get => drbd.position.x;
+    }
+    private float normalaimpoint
+    {
+        get => nap.position.x;
+    }
+    private float sideaimpoint
+    {
+        get => sap.position.x;
+    }
+    protected float starttime;
+    private AudioSource audioplayer;
     [SerializedDictionary("Statetype", "Duration(sec)")] 
     public SerializedDictionary<StateType, float> durationOfState = new SerializedDictionary<StateType, float>
     {
@@ -101,12 +123,12 @@ public class PlayerState : MonoBehaviour
     [SerializeField] protected int bighurtdamage = 3, smallhurtdamage = 2;
     public float LeftBorder
     {
-        get => (IsDizzy() ? dizzyLeftBorderOffset : leftBorderOffset) + player.getOriginX();
+        get => (IsDizzy() ? dizzyLeftBorder: leftBorder);
         set { }
     }
     public float Rightborder
     {
-        get => (IsDizzy() ? dizzyRightBorderOffset : rightBorderOffset) + player.getOriginX();
+        get => (IsDizzy() ? dizzyRightBorder: rightBorder);
         set { }
     }
     public float Aimpoint
@@ -114,7 +136,7 @@ public class PlayerState : MonoBehaviour
         get 
         {
             var SideAttacks = new List<StateType>{ StateType.satkpre, StateType.satkin, StateType.satkpost };
-            return (SideAttacks.Contains(curState) ? sideaimpointoffset : normalaimpointoffset) + player.getOriginX();
+            return (SideAttacks.Contains(curState) ? sideaimpoint: normalaimpoint);
         }
         set { }
     }
