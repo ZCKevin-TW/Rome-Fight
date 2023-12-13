@@ -5,7 +5,7 @@ using UnityEngine;
 public class HpBar : MonoBehaviour
 {
     // Start is called before the first frame update
-    private int OriginHP, BigHP, SmallHP, HP;
+    private int OriginHP, HP;
     private float OriginWidth, OriginHeight, PositionX, PositionY;
     private bool Started = false;
     [SerializeField] private GameObject HPBar;
@@ -18,8 +18,6 @@ public class HpBar : MonoBehaviour
     {
         OriginHP = 12;
         HP = OriginHP;
-        BigHP = 3;
-        SmallHP = 2;
         
         Rec = HPBar.transform as RectTransform;
         OriginWidth = Rec.sizeDelta.x;
@@ -30,17 +28,14 @@ public class HpBar : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void DecreaseHP(bool IsBig)
+    public void DecreaseHP(int amount) 
     {
         if (!Started) return;
-        if (IsBig)
-            HP -= BigHP;
-        else
-            HP -= SmallHP;
 
-        if (HP <= 0)
+        HP = Mathf.Max(0, HP - amount);
+
+        if (HP == 0)
         {
-            HP = 0;
             GameController.GameFinished(isPlayer);
         }
 

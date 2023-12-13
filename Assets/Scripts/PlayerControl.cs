@@ -164,7 +164,7 @@ public class PlayerControl : MonoBehaviour
         if (!DefendManager.IsBlocking() || ArmorPenetration)
         {
             if (HpManager != null)
-                HpManager.DecreaseHP(AttackManager.Vulnerable());
+                HpManager.DecreaseHP(AttackManager.Vulnerable() ? 3 : 2);
             // Oh no, I am hit, all my current activities are cancelled
             flashEffect.StartFlash(); 
             DefendManager.Cancel();
