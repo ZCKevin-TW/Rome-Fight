@@ -3243,7 +3243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ad088d7b76940458b235feb3196242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7.5
+  speed: 10
   dashDistance: 4
   DashCDTime: 1
   dashSound: {fileID: 7432677833184396757}
@@ -3520,7 +3520,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitImage: {fileID: 0}
   hitEffectTime: 0.2
-  anim: {fileID: 0}
   star: {fileID: 950022093}
   flashEffect: {fileID: 2849244522710674464}
   cancelcnt: 0
@@ -3533,11 +3532,11 @@ MonoBehaviour:
   durationOfState:
     _serializedList:
     - Key: 0
-      Value: 0.5
+      Value: 0.3
     - Key: 1
-      Value: 0.24
+      Value: 0.46
     - Key: 2
-      Value: 1
+      Value: 0.5
     - Key: 3
       Value: 2
     - Key: 4
@@ -3547,7 +3546,7 @@ MonoBehaviour:
     - Key: 6
       Value: 1
     - Key: 7
-      Value: 1.5
+      Value: 0.9
     - Key: 8
       Value: 0.1
     - Key: 9
@@ -3555,7 +3554,7 @@ MonoBehaviour:
     - Key: 10
       Value: 0.1
     - Key: 11
-      Value: 0.3
+      Value: 0.4
     - Key: 12
       Value: 1
     - Key: 13
@@ -3637,7 +3636,7 @@ MonoBehaviour:
   dashoffset: 4
   bighurtdamage: 3
   smallhurtdamage: 2
-  MoveableStates: 0b0000000e000000
+  MoveableStates: 0e000000
   DefendingStates: 070000000c0000000d000000
   InvincibleStates: 0c0000000d000000
   AttackingStates: 0100000005000000
@@ -3868,7 +3867,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9210157332333382937}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cc6dd7ee8a4c674892915917d96c2f3, type: 3}
   m_Name: 
@@ -3891,7 +3890,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitImage: {fileID: 0}
   hitEffectTime: 0.2
-  anim: {fileID: 0}
   star: {fileID: 704208175}
   flashEffect: {fileID: 9210157332096256672}
   cancelcnt: 0
@@ -3904,11 +3902,11 @@ MonoBehaviour:
   durationOfState:
     _serializedList:
     - Key: 0
-      Value: 0.5
+      Value: 0.3
     - Key: 1
-      Value: 0.08
+      Value: 0.46
     - Key: 2
-      Value: 1
+      Value: 0.5
     - Key: 3
       Value: 2
     - Key: 4
@@ -3918,15 +3916,15 @@ MonoBehaviour:
     - Key: 6
       Value: 1
     - Key: 7
-      Value: 1.5
+      Value: 0.9
     - Key: 8
       Value: 0.1
     - Key: 9
-      Value: 0.6
+      Value: 0.1
     - Key: 10
-      Value: 0.6
+      Value: 0.1
     - Key: 11
-      Value: 0.3
+      Value: 0.4
     - Key: 12
       Value: 1
     - Key: 13
