@@ -3551,9 +3551,9 @@ MonoBehaviour:
     - Key: 8
       Value: 0.1
     - Key: 9
-      Value: 0.6
+      Value: 0.1
     - Key: 10
-      Value: 0.6
+      Value: 0.1
     - Key: 11
       Value: 0.3
     - Key: 12
@@ -3637,7 +3637,7 @@ MonoBehaviour:
   dashoffset: 4
   bighurtdamage: 3
   smallhurtdamage: 2
-  MoveableStates: 090000000a0000000b0000000e000000
+  MoveableStates: 0b0000000e000000
   DefendingStates: 070000000c0000000d000000
   InvincibleStates: 0c0000000d000000
   AttackingStates: 0100000005000000
@@ -3868,7 +3868,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9210157332333382937}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cc6dd7ee8a4c674892915917d96c2f3, type: 3}
   m_Name: 
@@ -4010,7 +4010,7 @@ MonoBehaviour:
   dashoffset: 4
   bighurtdamage: 3
   smallhurtdamage: 2
-  MoveableStates: 090000000a0000000b0000000e000000
+  MoveableStates: 0b0000000e000000
   DefendingStates: 070000000c0000000d000000
   InvincibleStates: 0c0000000d000000
   AttackingStates: 0100000005000000

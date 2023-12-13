@@ -10,7 +10,6 @@ public class PlayerState : MonoBehaviour
     // Visual Effects
     [SerializeField] private GameObject hitImage;
     [SerializeField] private float hitEffectTime = .2f;
-    [SerializeField] private Animator anim;
     [SerializeField] private GameObject star;
     [SerializeField] private Flash flashEffect;
 
@@ -34,11 +33,11 @@ public class PlayerState : MonoBehaviour
     {
         get => drbd.position.x;
     }
-    private float normalaimpoint
+    public float normalaimpoint
     {
         get => nap.position.x;
     }
-    private float sideaimpoint
+    public float sideaimpoint
     {
         get => sap.position.x;
     }
@@ -208,6 +207,8 @@ public class PlayerState : MonoBehaviour
     }
     public void Refresh(StateType newState)
     {
+        var last_anim_trigger_name = AnimTriggerNameOfState[curState];
+
         if (curState == StateType.natkblocked)
             audioplayer.Stop();
         if (lastrountine != null)
@@ -243,8 +244,9 @@ public class PlayerState : MonoBehaviour
         }
         // TODO: need enemy.isHit()
 
-        Debug.Log("trigger animation " + AnimTriggerNameOfState[curState]);
-        player.anim.SetTrigger(AnimTriggerNameOfState[curState]);
+        // the set bool is acting really weird;
+        player.anim.SetBool(last_anim_trigger_name, false); 
+        player.anim.SetBool(AnimTriggerNameOfState[curState], true);
 
         if (AudioToPlayerOfState.ContainsKey(curState))
         {
@@ -273,9 +275,8 @@ public class PlayerState : MonoBehaviour
         isHitting = true;
         yield return new WaitForSeconds(.1f);
         isHitting = false; 
-    }
-
-    private void Update()
+    } 
+    private void FixedUpdate()
     {
         if (curState == StateType.dashleft)
             player.teleportForDistance(-dashoffset / Duration * Time.deltaTime);
@@ -297,6 +298,7 @@ public class PlayerState : MonoBehaviour
     }
     public bool PointInsidethis(float x)
     {
+        Debug.Log("LB RB " + LeftBorder + " " + Rightborder);
         return LeftBorder <= x && x <= Rightborder;
     }
     public bool IsDefending()

@@ -17,7 +17,8 @@ public class EnemyStrategy : MonoBehaviour
     enum Mode
     {
         Idle,
-        Attack,
+        Attack, 
+        SideAttack,
         Escape
     };
 
@@ -33,23 +34,26 @@ public class EnemyStrategy : MonoBehaviour
         StartCoroutine("RandomMoving");
         StartCoroutine("Switching");
     } 
+    private float Aimpoint
+    {
+        get => CurrentMode == Mode.SideAttack ? PlayerAPI.CurrentState.sideaimpoint : PlayerAPI.CurrentState.normalaimpoint;
+    }
 
     // Update is called once per frame
     void Update()
-    {
-        // PlayerAPI.BanMovement(1000f, () => { });
-//        return;
-
-// Debug.Log("Enemy strategy update");
+    { 
         if (PlayerAPI.HitWall()) dx *= -1;
         PlayerAPI.pressMove(dx);
-        if (!PlayerAPI.enemy.InsideHitBox(PlayerAPI.CurrentState.Aimpoint))
+
+        Debug.Log("Enemy aimpoint: "+Aimpoint);
+        if (!PlayerAPI.enemy.InsideHitBox(Aimpoint) || CurrentMode == Mode.Idle)
             InVisionTime = 0;
         else
             ++InVisionTime;
-        if (InVisionTime > 20 && CurrentMode == Mode.Attack) 
+
+        if (InVisionTime > 20)
         {
-            if (Random.Range(0f, 1f) > SideAttackProb)
+            if (CurrentMode == Mode.Attack)
                 PlayerAPI.pressAttack();
             else
                 PlayerAPI.pressSideAttack();
@@ -78,7 +82,10 @@ public class EnemyStrategy : MonoBehaviour
             }
             else
             {
-                CurrentMode = Mode.Attack;
+                if (Random.Range(0.0f, 1.0f) > SideAttackProb)
+                    CurrentMode = Mode.Attack;
+                else
+                    CurrentMode = Mode.SideAttack;
             }
             float RemainTime = Random.Range(0f, StrategySwitchTime);
             yield return new WaitForSeconds(RemainTime); 
@@ -111,7 +118,6 @@ public class EnemyStrategy : MonoBehaviour
 
         if (PlayerAPI.DangerDistance() <= CloseDis)
         {
-            Debug.Log("Close so dangerous");
             PlayerAPI.pressDefend();
         }
         else if (PlayerAPI.InsideHitBox(PlayerAPI.enemy.CurrentState.Aimpoint))
@@ -125,7 +131,6 @@ public class EnemyStrategy : MonoBehaviour
     }
     public void ReactToAttack()
     {
-        Debug.Log("trigger reacting");
         StartCoroutine(_ReactToAttack()); 
     }
     IEnumerator RandomMoving()
