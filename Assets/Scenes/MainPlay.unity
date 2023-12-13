@@ -3555,7 +3555,7 @@ MonoBehaviour:
     - Key: 10
       Value: 0.6
     - Key: 11
-      Value: 1
+      Value: 0.3
     - Key: 12
       Value: 1
     - Key: 13
@@ -3926,7 +3926,7 @@ MonoBehaviour:
     - Key: 10
       Value: 0.6
     - Key: 11
-      Value: 1
+      Value: 0.3
     - Key: 12
       Value: 1
     - Key: 13
