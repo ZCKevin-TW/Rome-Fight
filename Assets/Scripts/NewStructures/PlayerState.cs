@@ -269,6 +269,10 @@ public class PlayerState : MonoBehaviour
         hitImage.SetActive(false);
         yield return null;
     }
+    public void HitSuccess()
+    {
+        StartCoroutine(HitSucceedEffect());
+    }
     private IEnumerator StartHitAfter(float sec)
     {
         yield return new WaitForSeconds(sec);

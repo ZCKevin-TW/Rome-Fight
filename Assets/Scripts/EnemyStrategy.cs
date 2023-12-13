@@ -7,13 +7,23 @@ public class EnemyStrategy : MonoBehaviour
     // Start is called before the first frame update
     private Player PlayerAPI;
     [SerializeField] private float MaxPatterTime = .8f;
-    private float ReactTime() => NextGaussian(.5f, .2f, 0f, 2f);
     [SerializeField] private float CloseDis = .1f;
     [SerializeField] private float StrategySwitchTime = 5f;
+    [SerializeField] private float SideAttackProb = .4f;
 //    [SerializeField] private float OutterBlockProbability = .8f;
-    [SerializeField] private float SideAttackProb = .25f;
+//    [SerializeField] 
+//    private float DefendProb = .4f;
     private float dx;
     private int InVisionTime;
+    private float ReactTime()
+    {
+        return NextGaussian(.5f, .2f, 0f, 2f);
+//        if (Random.Range(0f, 1f) < DefendProb)
+//        {
+//            return NextGaussian(.2f, .1f, 0f, .3f);
+//        }
+//        return 100f;
+    }
     enum Mode
     {
         Idle,

@@ -52,11 +52,13 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
+                    CurrentState.HitSuccess();
                     enemy.CurrentState.ToNextStateOfbeingNormalAttack();
                 } 
             }
             else if (CurrentState.IsSideAttacking())
             {
+                CurrentState.HitSuccess();
                 enemy.CurrentState.ToNextStateOfbeingSideAttack();
             } 
         }
