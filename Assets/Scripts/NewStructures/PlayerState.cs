@@ -220,7 +220,7 @@ public class PlayerState : MonoBehaviour
         if (curState == StateType.natkblocked)
             star.SetActive(false);
         else if (newState == StateType.natkblocked)
-            star.SetActive(true);
+            StartCoroutine(ShowStarAfter(.2f));
 
 
         starttime = Time.time;
@@ -252,6 +252,11 @@ public class PlayerState : MonoBehaviour
             if (AudioToPlayerOfState[curState])
                 audioplayer.PlayOneShot(AudioToPlayerOfState[curState]);
         }
+    }
+    private IEnumerator ShowStarAfter(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        star.SetActive(true);
     }
     private IEnumerator HitSucceedEffect()
     {
