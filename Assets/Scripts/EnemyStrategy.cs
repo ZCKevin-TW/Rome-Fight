@@ -38,7 +38,6 @@ public class EnemyStrategy : MonoBehaviour
     void Update()
     {
         // PlayerAPI.BanMovement(1000f, () => { });
-//        PlayerAPI.pressAttack(Attack.AttackType.Side);
 //        return;
 
 // Debug.Log("Enemy strategy update");
