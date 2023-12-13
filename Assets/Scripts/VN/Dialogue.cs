@@ -15,6 +15,9 @@ public class Dialogue : MonoBehaviour
     [SerializeField] string DialogueFileName;
     [SerializeField] string NPCname;
     [SerializeField] string Name4Animation;
+    [SerializeField] CucumberIntroEvent cucumberIntroEvent;
+    [SerializeField] bool IsWin = false;
+    [SerializeField] bool AfterFight = false;
     Animator animator;
 
     private void Start()
@@ -35,6 +38,12 @@ public class Dialogue : MonoBehaviour
         lines.Clear();
         try
         {
+
+            if (IsWin && AfterFight)
+                DialogueFileName = "Win.txt";
+            else if(AfterFight)
+                DialogueFileName = "Lose.txt";
+
             using (StreamReader sr = new StreamReader("Assets/Dialogues/" + DialogueFileName))
             {
                 while (!sr.EndOfStream)
@@ -85,9 +94,16 @@ public class Dialogue : MonoBehaviour
         }
         else
         {
+            if (NPCname == "Ccucumber1")
+            {
+                cucumberIntroEvent.IntroOutro();
+            }
             gameObject.SetActive(false);
+           
         }
     }
+
+
     IEnumerator TypeLine()
     {
         SpeakerName.text = words[0];
