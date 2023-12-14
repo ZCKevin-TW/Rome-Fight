@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStrategy : MonoBehaviour
+public class StrategyV2 : EnemyStrategy
 {
     // Start is called before the first frame update
-    private Player PlayerAPI;
+    // private Player PlayerAPI;
     [SerializeField] private float MaxPatterTime = .8f;
     [SerializeField] private float CloseDis = .1f;
     [SerializeField] private float StrategySwitchTime = 5f;
@@ -34,11 +34,9 @@ public class EnemyStrategy : MonoBehaviour
 
     private Mode CurrentMode;
 
-    void Start()
+    override public void Start()
     {
-        //PlayerAPI = GetComponent<PlayerControl>();
-        PlayerAPI = GetComponent<Player>();
-    //    Debug.Log("awaking");
+        base.Start();
         InVisionTime = 0;
         CurrentMode = Mode.Idle;
         StartCoroutine("RandomMoving");
@@ -139,7 +137,7 @@ public class EnemyStrategy : MonoBehaviour
             //
         } 
     }
-    public void ReactToAttack()
+    public override void ReactToAttack()
     {
         StartCoroutine(_ReactToAttack()); 
     }
