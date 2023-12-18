@@ -11,6 +11,7 @@ public class CucumberIntroEvent : MonoBehaviour
 
     [SerializeField] private GameObject MusicPlayer;
     [SerializeField] private AudioClip charAppearSound;
+    [SerializeField] private AudioClip BGM;
     private AudioSource sfxPlayer;
 
     private void Start()
@@ -34,6 +35,8 @@ public class CucumberIntroEvent : MonoBehaviour
                 source.Stop();
             }
         }
+        // intro music
+        sfxPlayer.PlayOneShot(BGM, .7f);
         StartCoroutine(Alltros());
     }
 
@@ -59,8 +62,9 @@ public class CucumberIntroEvent : MonoBehaviour
     }
     IEnumerator Alltros()
     {
+        yield return new WaitForSeconds(2.7f);
         StartCoroutine(Type());
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         StartCoroutine(Fade());
         yield return new WaitForSeconds(1);
         animator_background.Play("BackgroundFlash");
