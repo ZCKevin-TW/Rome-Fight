@@ -161,6 +161,8 @@ public class PlayerState : MonoBehaviour
         dashpost,
         smallhurt,
         bighurt,
+        win,
+        lose,
         idle
     };
     StateType curState = StateType.idle;
@@ -245,8 +247,10 @@ public class PlayerState : MonoBehaviour
         // TODO: need enemy.isHit()
 
         // the set bool is acting really weird;
-        player.anim.SetBool(last_anim_trigger_name, false); 
-        player.anim.SetBool(AnimTriggerNameOfState[curState], true);
+        if (last_anim_trigger_name != null)
+            player.anim.SetBool(last_anim_trigger_name, false); 
+        if (AnimTriggerNameOfState[curState] != null)
+            player.anim.SetBool(AnimTriggerNameOfState[curState], true);
 
         if (AudioToPlayerOfState.ContainsKey(curState))
         {
@@ -386,6 +390,14 @@ public class PlayerState : MonoBehaviour
     {
         Refresh(WeakStates.Contains(curState) ? StateType.bighurt : StateType.smallhurt);
     }
+    public void ToNextStateOfWin()
+    {
+        Refresh(StateType.win);
+    }
+    public void ToNextStateOfLose()
+    {
+        Refresh(StateType.lose);
+    } 
     public void ToNextState()
     {
         if (Time.time - starttime < Duration || curState == StateType.idle)

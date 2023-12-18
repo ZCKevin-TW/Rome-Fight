@@ -53,6 +53,8 @@ public class GameController : MonoBehaviour
         if (!playerWin)
         {
             Debug.Log("player win");
+            players[0].CurrentState.ToNextStateOfWin();
+            players[1].CurrentState.ToNextStateOfLose();
             record.playerWin = true;
             WinSound.Play();
             WinString.SetActive(true);
@@ -60,6 +62,8 @@ public class GameController : MonoBehaviour
         else
         {
             Debug.Log("player lose");
+            players[1].CurrentState.ToNextStateOfWin();
+            players[0].CurrentState.ToNextStateOfLose();
             record.playerWin = false;
             LoseSound.Play();
             LoseString.SetActive(true);
