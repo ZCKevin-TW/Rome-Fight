@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CucumberIntroEvent : MonoBehaviour
@@ -7,6 +8,10 @@ public class CucumberIntroEvent : MonoBehaviour
     Animator animator;
     Transform mychars;
     Animator animator_background;
+
+    [SerializeField] private GameObject MusicPlayer;
+    [SerializeField] private AudioClip charAppearSound;
+    private AudioSource sfxPlayer;
 
     private void Start()
     {
@@ -16,9 +21,19 @@ public class CucumberIntroEvent : MonoBehaviour
         Debug.Log("mychars", mychars);
         animator_background = GameObject.Find("Middle").GetComponent<Animator>();
         Debug.Log("background", animator_background);
+        sfxPlayer = GetComponent<AudioSource>();
     }
     public void IntroOutro()
     {
+        // stop music
+        AudioSource[] music = MusicPlayer.GetComponents<AudioSource>();
+        foreach (AudioSource source in music)
+        {
+            if (source.isPlaying)
+            {
+                source.Stop();
+            }
+        }
         StartCoroutine(Alltros());
     }
 
@@ -27,6 +42,7 @@ public class CucumberIntroEvent : MonoBehaviour
         foreach (RectTransform c in mychars)
         {
             c.gameObject.SetActive(true);
+            sfxPlayer.PlayOneShot(charAppearSound, 1f);
             yield return new WaitForSeconds(.3f);
         }
         yield return null;
