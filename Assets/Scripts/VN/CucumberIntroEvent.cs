@@ -26,7 +26,10 @@ public class CucumberIntroEvent : MonoBehaviour
     }
     public void IntroOutro()
     {
-        // stop music
+        // intro music
+        sfxPlayer.PlayOneShot(BGM, .7f);
+
+        // stop VN music
         AudioSource[] music = MusicPlayer.GetComponents<AudioSource>();
         foreach (AudioSource source in music)
         {
@@ -35,8 +38,6 @@ public class CucumberIntroEvent : MonoBehaviour
                 source.Stop();
             }
         }
-        // intro music
-        sfxPlayer.PlayOneShot(BGM, .7f);
         StartCoroutine(Alltros());
     }
 
