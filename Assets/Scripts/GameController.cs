@@ -28,8 +28,12 @@ public class GameController : MonoBehaviour
     {
         battling = false;
         gameFinished = false;
+        Invoke("GameStart", 4);
+        Invoke("PlayCountDownSound", 1);
+    }
+    private void PlayCountDownSound()
+    {
         countdownSound.Play();
-        Invoke("GameStart", 3);
     }
 
     private void GameStart()
