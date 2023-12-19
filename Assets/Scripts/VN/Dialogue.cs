@@ -59,6 +59,7 @@ public class Dialogue : MonoBehaviour
         }
 
         words = lines[index].Split("#");
+        words[1] = words[1].Replace("n", "\n");
         StartCoroutine(TypeLine());
     }
 
@@ -114,10 +115,7 @@ public class Dialogue : MonoBehaviour
         SpeakerName.text = words[0];
         foreach (char c in words[1].ToCharArray())
         {
-            if (c == 'n')
-                DialogueText.text += '\n';
-            else
-                DialogueText.text += c;
+            DialogueText.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
     }
