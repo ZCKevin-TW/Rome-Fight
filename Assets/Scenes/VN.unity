@@ -213,7 +213,7 @@ MonoBehaviour:
   NPCname: NONE
   Name4Animation: NONE
   cucumberIntroEvent: {fileID: 0}
-  IsWin: 0
+  record: {fileID: 0}
   AfterFight: 0
 --- !u!222 &4029986
 CanvasRenderer:
@@ -2470,7 +2470,7 @@ MonoBehaviour:
   NPCname: NONE
   Name4Animation: NONE
   cucumberIntroEvent: {fileID: 0}
-  IsWin: 0
+  record: {fileID: 0}
   AfterFight: 0
 --- !u!222 &850922548
 CanvasRenderer:
@@ -3744,7 +3744,7 @@ MonoBehaviour:
   NPCname: Ccucumber2
   Name4Animation: "\u5C0F\u9EC3\u74DC"
   cucumberIntroEvent: {fileID: 0}
-  IsWin: 1
+  record: {fileID: 0}
   AfterFight: 1
 --- !u!114 &1335073307
 MonoBehaviour:
@@ -4346,7 +4346,7 @@ MonoBehaviour:
   NPCname: Ccucumber1
   Name4Animation: "\u5C0F\u9EC3\u74DC"
   cucumberIntroEvent: {fileID: 474333889}
-  IsWin: 0
+  record: {fileID: 0}
   AfterFight: 0
 --- !u!114 &1843598890
 MonoBehaviour:

@@ -3883,7 +3883,7 @@ MonoBehaviour:
   MaxPatterTime: 0.8
   CloseDis: 0.1
   StrategySwitchTime: 2
-  SideAttackProb: 0.25
+  SideAttackProb: 0.5
 --- !u!114 &9210157332611402339
 MonoBehaviour:
   m_ObjectHideFlags: 0
