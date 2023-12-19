@@ -55,7 +55,7 @@ public class EnemyStrategy : MonoBehaviour
         if (PlayerAPI.HitWall()) dx *= -1;
         PlayerAPI.pressMove(dx);
 
-        Debug.Log("Enemy aimpoint: "+Aimpoint);
+      //  Debug.Log("Enemy aimpoint: "+Aimpoint);
         if (!PlayerAPI.enemy.InsideHitBox(Aimpoint) || CurrentMode == Mode.Idle)
             InVisionTime = 0;
         else

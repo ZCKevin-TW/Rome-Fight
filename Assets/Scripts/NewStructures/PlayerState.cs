@@ -226,6 +226,7 @@ public class PlayerState : MonoBehaviour
             StartCoroutine(ShowStarAfter(.2f));
 
 
+        Debug.Log("From old state" + curState);
         starttime = Time.time;
         curState = newState;
         Debug.Log("to new state " + curState);
@@ -318,7 +319,7 @@ public class PlayerState : MonoBehaviour
     }
     public bool PointInsidethis(float x)
     {
-        Debug.Log("LB RB " + LeftBorder + " " + Rightborder);
+      // Debug.Log("LB RB " + LeftBorder + " " + Rightborder);
         return LeftBorder <= x && x <= Rightborder;
     }
     public bool IsDefending()
@@ -348,6 +349,8 @@ public class PlayerState : MonoBehaviour
             || curState == StateType.bighurt
             || curState == StateType.win
             || curState == StateType.lose
+            || curState == StateType.dashleft
+            || curState == StateType.dashright
             || IsDizzy())
             return false;
         return true;
@@ -392,7 +395,7 @@ public class PlayerState : MonoBehaviour
     }
     public void ToNextStateOfbeingBlocked()
     {
-        Debug.Assert(curState == StateType.natkin);
+     //   Debug.Assert(curState == StateType.natkin);
         Refresh(StateType.natkblocked); 
     }
     public void ToNextStateOfbeingNormalAttack()
