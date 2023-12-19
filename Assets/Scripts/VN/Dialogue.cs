@@ -117,7 +117,10 @@ public class Dialogue : MonoBehaviour
         SpeakerName.text = words[0];
         foreach (char c in words[1].ToCharArray())
         {
-            DialogueText.text += c;
+            if (c == 'n')
+                DialogueText.text += '\n';
+            else
+                DialogueText.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
     }
