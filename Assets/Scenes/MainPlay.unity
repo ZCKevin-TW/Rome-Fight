@@ -3561,6 +3561,10 @@ MonoBehaviour:
       Value: 1
     - Key: 14
       Value: 0
+    - Key: 15
+      Value: 0
+    - Key: 16
+      Value: 0
   DefaultNextStateOfState:
     _serializedList:
     - Key: 0
@@ -3619,6 +3623,10 @@ MonoBehaviour:
       Value: hit
     - Key: 13
       Value: hit
+    - Key: 15
+      Value: win
+    - Key: 16
+      Value: lose
   AudioToPlayerOfState:
     _serializedList:
     - Key: 1

@@ -161,9 +161,9 @@ public class PlayerState : MonoBehaviour
         dashpost,
         smallhurt,
         bighurt,
+        idle,
         win,
-        lose,
-        idle
+        lose
     };
     StateType curState = StateType.idle;
     [SerializeField] private List<StateType> MoveableStates = new List<StateType>() {
@@ -334,6 +334,8 @@ public class PlayerState : MonoBehaviour
         if (cancelcnt > 0 
             || curState == StateType.smallhurt 
             || curState == StateType.bighurt
+            || curState == StateType.win
+            || curState == StateType.lose
             || IsDizzy())
             return false;
         return true;
@@ -400,7 +402,7 @@ public class PlayerState : MonoBehaviour
     } 
     public void ToNextState()
     {
-        if (Time.time - starttime < Duration || curState == StateType.idle)
+        if (Time.time - starttime < Duration || Duration == 0)
             return;
         Refresh(DefaultNextStateOfState[curState]);
     }
