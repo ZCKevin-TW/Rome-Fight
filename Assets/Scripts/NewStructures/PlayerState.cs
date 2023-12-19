@@ -375,7 +375,7 @@ public class PlayerState : MonoBehaviour
     }
     public void ToNextStateOfpressDash(float dx)
     {
-        if (curState == StateType.idle && dx != 0)
+        if (curState == StateType.idle && dx != 0 || AllDefendStates.Contains(curState))
             Refresh(dx < 0 ? StateType.dashleft : StateType.dashright);
     }
     public void ToNextStateOfbeingBlocked()
