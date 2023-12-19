@@ -13,6 +13,7 @@ public class CucumberIntroEvent : MonoBehaviour
     [SerializeField] private AudioClip charAppearSound;
     [SerializeField] private AudioClip BGM;
     private AudioSource sfxPlayer;
+    [SerializeField] private float charAppearDelay = 2.68f;
 
     private void Start()
     {
@@ -26,8 +27,9 @@ public class CucumberIntroEvent : MonoBehaviour
     }
     public void IntroOutro()
     {
-        // intro music
-        sfxPlayer.PlayOneShot(BGM, .7f);
+        // play intro music
+        // sfxPlayer.PlayOneShot(BGM, .7f);
+        GameObject.FindGameObjectWithTag("IntroMusic").GetComponent<MusicClass>().PlayMusic();
 
         // stop VN music
         AudioSource[] music = MusicPlayer.GetComponents<AudioSource>();
@@ -45,8 +47,8 @@ public class CucumberIntroEvent : MonoBehaviour
     {
         foreach (RectTransform c in mychars)
         {
-            c.gameObject.SetActive(true);
             sfxPlayer.PlayOneShot(charAppearSound, 1f);
+            c.gameObject.SetActive(true);
             yield return new WaitForSeconds(.3f);
         }
         yield return null;
@@ -63,7 +65,7 @@ public class CucumberIntroEvent : MonoBehaviour
     }
     IEnumerator Alltros()
     {
-        yield return new WaitForSeconds(2.7f);
+        yield return new WaitForSeconds(charAppearDelay);
         StartCoroutine(Type());
         yield return new WaitForSeconds(3);
         StartCoroutine(Fade());
