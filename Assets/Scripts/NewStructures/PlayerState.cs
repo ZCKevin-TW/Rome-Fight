@@ -16,7 +16,7 @@ public class PlayerState : MonoBehaviour
     public int cancelcnt = 0;
     private bool isHitting;
     private Coroutine lastrountine = null;
-    [SerializeField] private Transform lbd, rbd, dlbd, drbd, nap, sap;
+    [SerializeField] private Transform lbd, rbd, dlbd, drbd, nap, sap, winpos, losepos;
     private float leftBorder
     {
         get => lbd.position.x; 
@@ -257,6 +257,18 @@ public class PlayerState : MonoBehaviour
             // TODO should not be null
             if (AudioToPlayerOfState[curState])
                 audioplayer.PlayOneShot(AudioToPlayerOfState[curState]);
+        }
+
+        if (curState == StateType.win)
+        {
+            Debug.Log("win type set position");
+            player.SetPosition(winpos);
+        }
+        if (curState == StateType.lose)
+        {
+            Debug.Log("lose type set position");
+
+            player.SetPosition(losepos);
         }
     }
     private IEnumerator ShowStarAfter(float duration)

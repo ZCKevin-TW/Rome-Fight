@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] private bool InputFromUser = true;
     [SerializeField] private HpBar HpManager;
     [SerializeField] private Flash flashEffect;
+    [SerializeField] private GameObject rend;
     private bool Active;
     private PlayerMovement MoveManager;
     private EnemyStrategy Brain;
@@ -18,7 +19,7 @@ public class Player : MonoBehaviour
     {
         Active = false;
         CurrentState = GetComponent<PlayerState>(); 
-        anim = GetComponentInChildren<Animator>(); 
+        anim = GetComponentInChildren<Animator>();
         MoveManager = GetComponent<PlayerMovement>();
         Brain = GetComponent<EnemyStrategy>();
     } 
@@ -108,6 +109,11 @@ public class Player : MonoBehaviour
     public float getOriginX()
     {
         return MoveManager.GetPos();
+    }
+    public void SetPosition(Transform t)
+    {
+        MoveManager.Reset();
+        transform.position = t.position;
     }
     public bool InsideHitBox(float x) => CurrentState.PointInsidethis(x);
     public int Unify(float x)
