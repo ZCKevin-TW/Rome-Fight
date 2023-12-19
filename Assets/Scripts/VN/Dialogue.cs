@@ -40,11 +40,8 @@ public class Dialogue : MonoBehaviour
         lines.Clear();
         try
         {
-
-            if (IsWin && AfterFight)
-                DialogueFileName = "Win.txt";
-            else if(AfterFight)
-                DialogueFileName = "Lose.txt";
+            if (AfterFight)
+                DialogueFileName = (IsWin)? "Win.txt" : "Lose.txt";
 
             using (StreamReader sr = new StreamReader("Assets/Dialogues/" + DialogueFileName))
             {
