@@ -85,6 +85,7 @@ public class Dialogue : MonoBehaviour
             index++;
             DialogueText.text = string.Empty;
             words = lines[index].Split("#");
+            words[1] = words[1].Replace("n", "\n");
             Debug.Log(words.Length);
             if (animator && words[0] == Name4Animation && words.Length >= 3)
             {
@@ -113,6 +114,7 @@ public class Dialogue : MonoBehaviour
     IEnumerator TypeLine()
     {
         SpeakerName.text = words[0];
+        Debug.Log("print: " + words[1]);
         foreach (char c in words[1].ToCharArray())
         {
             DialogueText.text += c;
