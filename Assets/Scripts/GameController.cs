@@ -69,11 +69,11 @@ public class GameController : MonoBehaviour
             LoseString.SetActive(true);
         }
 
-        Invoke("ReturnToMenu", 3);
+        Invoke("ToAfterFight", 3);
     }
 
-    private void ReturnToMenu()
+    private void ToAfterFight()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("AfterFight");
     }
 }

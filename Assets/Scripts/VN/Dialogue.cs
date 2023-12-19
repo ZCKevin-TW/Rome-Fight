@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class Dialogue : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -16,7 +17,8 @@ public class Dialogue : MonoBehaviour
     [SerializeField] string NPCname;
     [SerializeField] string Name4Animation;
     [SerializeField] CucumberIntroEvent cucumberIntroEvent;
-    [SerializeField] bool IsWin = false;
+    [SerializeField] FightingResults record;
+    bool IsWin { get => record == null ? false : record.playerWin; }
     [SerializeField] bool AfterFight = false;
     Animator animator;
 
@@ -98,6 +100,12 @@ public class Dialogue : MonoBehaviour
             {
                 cucumberIntroEvent.IntroOutro();
             }
+            if (AfterFight)
+            {
+                if(IsWin) SceneManager.LoadScene("EndMenu");
+                else SceneManager.LoadScene("MainPlay");
+            }
+
             gameObject.SetActive(false);
            
         }
