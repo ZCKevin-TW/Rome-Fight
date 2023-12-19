@@ -38,8 +38,13 @@ public class GameController : MonoBehaviour
     {
         GameObject musicPlayer = GameObject.FindGameObjectWithTag("IntroMusic");
         AudioSource introMusic = musicPlayer.GetComponent<AudioSource>();
-        StartCoroutine(MusicClass.FadeOut(introMusic, 1.5f));
-        // Destroy(musicPlayer);
+        StartCoroutine(DestroyWrapper(musicPlayer, introMusic));
+        
+    }
+    private IEnumerator DestroyWrapper(GameObject musicPlayer, AudioSource introMusic)
+    {
+        yield return StartCoroutine(MusicClass.FadeOut(introMusic, 1.5f));
+        Destroy(musicPlayer);
     }
     private void PlayCountDownSound()
     {
