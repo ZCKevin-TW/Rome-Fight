@@ -2471,7 +2471,7 @@ MonoBehaviour:
   m_text: "\u53F0\u8A5E\u53F0\u8A5E\u53F0\u8A5E"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7972d78eb98e3914b99f157aaf496bae, type: 2}
-  m_sharedMaterial: {fileID: 1345990275416898767, guid: 2efadac5b15a6e04a88eb73fb90d50ab, type: 2}
+  m_sharedMaterial: {fileID: 2168230557693654927, guid: 7972d78eb98e3914b99f157aaf496bae, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3761,7 +3761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1859398808
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3883,7 +3883,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0353e2b4d23baa24ba16065529959f98, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.35
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3979,7 +3979,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 021fe18120edba647ba7ed35f3f30516, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.35
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 1
   Mute: 0
