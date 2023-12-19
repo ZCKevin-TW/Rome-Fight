@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/Menu.unity
+    path: Assets/Scenes/Menu(temp).unity
     guid: f51fef23f50822f4586c52da4743216b
   - enabled: 1
     path: Assets/Scenes/StartMenu.unity
@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainPlay.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/AfterFight.unity
+    guid: 90b23d3bc89a16546b0a0ae413db9845
+  - enabled: 1
+    path: Assets/Scenes/EndMenu.unity
+    guid: 5f492deaa12493e49bad48c3809ad35d
   m_configObjects: {}
