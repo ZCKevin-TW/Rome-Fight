@@ -6,7 +6,7 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
-    private float timeRemaining = 60;
+    [SerializeField] private float timeRemaining = 60;
     // private bool timerIsRunning = false;
     [SerializeField] private TMP_Text timeText;
     [SerializeField] private GameController gameController;

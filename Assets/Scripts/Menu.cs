@@ -21,4 +21,11 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    public void StopMusicOnClick()
+    {
+        GameObject musicPlayer = GameObject.FindGameObjectWithTag("IntroMusic");
+        musicPlayer.GetComponent<MusicClass>().StopMusic();
+        Destroy(musicPlayer);
+    }
 }

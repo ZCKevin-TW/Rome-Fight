@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -30,17 +31,36 @@ public class GameController : MonoBehaviour
         gameFinished = false;
         Invoke("GameStart", 4);
         Invoke("PlayCountDownSound", 1);
+        Invoke("PlayBGM", 2.7f);
+        Invoke("MusicVanish", .5f);
+    }
+    private void MusicVanish()
+    {
+        GameObject musicPlayer = GameObject.FindGameObjectWithTag("IntroMusic");
+        AudioSource introMusic = musicPlayer.GetComponent<AudioSource>();
+        StartCoroutine(DestroyWrapper(musicPlayer, introMusic));
+        
+    }
+    private IEnumerator DestroyWrapper(GameObject musicPlayer, AudioSource introMusic)
+    {
+        yield return StartCoroutine(MusicClass.FadeOut(introMusic, 1.5f));
+        Destroy(musicPlayer);
     }
     private void PlayCountDownSound()
     {
         countdownSound.Play();
     }
 
+    private void PlayBGM()
+    {
+
+        battleBGM.Play();
+    }
+
     private void GameStart()
     {
         Debug.Log("start");
         battling = true;
-        battleBGM.Play();
         PlayerHP.SetStarted(true);
         EnemyHP.SetStarted(true);
         foreach (var p in players)
