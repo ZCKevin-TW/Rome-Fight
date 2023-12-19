@@ -41,9 +41,13 @@ public class Dialogue : MonoBehaviour
         try
         {
             if (AfterFight)
-                DialogueFileName = (IsWin)? "Win.txt" : "Lose.txt";
+                DialogueFileName = (IsWin)? "Win" : "Lose";
 
-            using (StreamReader sr = new StreamReader("Assets/Dialogues/" + DialogueFileName))
+            //var target = Application.streamingAssetsPath + "/" + DialogueFileName;
+            string txt = Resources.Load(DialogueFileName).ToString();
+            lines = new List<string>(txt.Split("\n"));
+            /*
+            using (StreamReader sr = new StreamReader("test"))
             {
                 while (!sr.EndOfStream)
                 {
@@ -52,6 +56,7 @@ public class Dialogue : MonoBehaviour
                         lines.Add(line);
                 }
             }
+            */
         }
         catch (FileNotFoundException ex)
         {

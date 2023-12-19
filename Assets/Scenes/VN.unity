@@ -2234,7 +2234,7 @@ MonoBehaviour:
   DialogueText: {fileID: 923845579}
   SpeakerName: {fileID: 146946913}
   textSpeed: 0.03
-  DialogueFileName: SideDoor.txt
+  DialogueFileName: SideDoor
   NPCname: NONE
   Name4Animation: NONE
   cucumberIntroEvent: {fileID: 0}
@@ -3845,7 +3845,7 @@ MonoBehaviour:
   DialogueText: {fileID: 145526231}
   SpeakerName: {fileID: 1504245389}
   textSpeed: 0.03
-  DialogueFileName: Middle.txt
+  DialogueFileName: Middle
   NPCname: Ccucumber1
   Name4Animation: "\u5C0F\u9EC3\u74DC"
   cucumberIntroEvent: {fileID: 474333889}
