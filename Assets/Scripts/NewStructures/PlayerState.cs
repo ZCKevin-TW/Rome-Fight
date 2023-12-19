@@ -8,7 +8,8 @@ public class PlayerState : MonoBehaviour
     protected Player player;
 
     // Visual Effects
-    [SerializeField] private GameObject hitImage;
+    [SerializeField] private GameObject normalHitImage;
+    [SerializeField] private GameObject sideHitImage;
     [SerializeField] private float hitEffectTime = .2f;
     [SerializeField] private GameObject star;
     [SerializeField] private Flash flashEffect;
@@ -278,6 +279,7 @@ public class PlayerState : MonoBehaviour
     }
     private IEnumerator HitSucceedEffect()
     {
+        GameObject hitImage = (curState == StateType.natkin) ? normalHitImage : sideHitImage;
         hitImage.SetActive(true);
         hitImage.transform.SetParent(null);
         yield return new WaitForSeconds(hitEffectTime);
